@@ -1,14 +1,8 @@
 package com.sujitha.busticketapp.busDetailsTest;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.sujitha.busticketapp.dao.impl.UserDetailsDAOImpl;
-import com.sujitha.busticketapp.dto.UserGenderEnum;
-import com.sujitha.busticketapp.model.UserDetails;
 
 public class TestUserDetails {
 

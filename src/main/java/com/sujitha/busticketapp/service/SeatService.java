@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 import com.sujitha.busticketapp.dao.impl.BookingDetailDAOImpl;
 import com.sujitha.busticketapp.dao.impl.SeatDAOImpl;
+import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.Booking;
 
 public class SeatService {
+	private static final Logger log=Logger.getInstance();
 
 	
 	public static int getNextSeatNo(LocalDate bookedDate, int BusNum) throws Exception {
@@ -26,24 +28,24 @@ public class SeatService {
 		int lastSeatNo = obj.getLastSeatNo(bookedDate, BusNum);
 		int seatsBooked = sdi. getBookedNumberOfSeats(BusNum);
 		int totalSeats =sdi.getTotalNumberofSeats(BusNum);
-		log.getInput("Last Seat No :" + lastSeatNo);
+		System.out.println("Last Seat No :" + lastSeatNo);
 		int nextSeatNo = 0;
 		if (lastSeatNo == 0) {
 			nextSeatNo = 1;
 		} 
 		else if ( lastSeatNo == totalSeats ) {
 			if ( seatsBooked == totalSeats) {	
-				log.getInput("Seat not available");
+				System.out.println("Seat not available");
 			}
 			else if ( seatsBooked < totalSeats) {
 				ArrayList<Integer> seatNo = sdi.getUnFilledSeatNo(bookedDate, BusNum);
-				log.getInput("This seat no is free: " + seatNo);
+				System.out.println("This seat no is free: " + seatNo);
 			}
 		
 		}
 		else {
 			Booking bookingObj = obj.searchBySeatNo(bookedDate, BusNum, lastSeatNo);
-			log.getInput(bookingObj);
+			System.out.println(bookingObj);
 			
 			if (bookingObj.getGenderPreference().equals("no") && genderPreference.equals("no") ) {
 				nextSeatNo = lastSeatNo + 1;
@@ -71,7 +73,7 @@ public int getUnFiledSeats(int busNum,int seatNo,LocalDate bookedDate) {
 	  {
 		  previousSeatNo=seatNo+1;
 	  }
-	  log.getInput(previousSeatNo);
+	  System.out.println(previousSeatNo);
 
 	return previousSeatNo;
 }

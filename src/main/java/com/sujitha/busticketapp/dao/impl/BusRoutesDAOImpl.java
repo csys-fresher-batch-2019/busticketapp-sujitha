@@ -19,7 +19,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 
 	public String toLocation(int routeNo) throws Exception {
 		String s="select to_location from busroutes where route_no=?";
-		log.getInput(s);
+		System.out.println(s);
 		String str= null;
 		try(Connection connection =DbConnection.getConnection() ;
 		
@@ -42,7 +42,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 
 	public void busRouteAdd(int routeNo, String fromLocation, String toLocation) throws Exception {
 		String st="insert into busroutes(route_no,from_location,to_location)values(?,?,?)";
-		  log.getInput(st);
+		  System.out.println(st);
 		try(Connection connection =DbConnection.getConnection() ;
 		  
 		  PreparedStatement pst = connection.prepareStatement(st);)
@@ -51,7 +51,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 		  pst.setString(2,fromLocation);
 		  pst.setString(3,toLocation);
 		  int row=pst.executeUpdate();
-		log.getInput(row);
+		System.out.println(row);
 	}catch(Exception e)
 		{
 		e.printStackTrace();
@@ -60,7 +60,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 
 	public void routeNoUpdate(int routeNo, String toLocation) throws Exception {
 		String n = "update busroutes set to_location=? where route_no=?";
-	     log.getInput(n);
+	     System.out.println(n);
 		try(Connection connection =DbConnection.getConnection() ;
 		
 	     PreparedStatement pst = connection.prepareStatement(n);)
@@ -69,7 +69,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 		  pst.setInt(2,routeNo);
 			int row=pst.executeUpdate();
 	      
-			log.getInput(row);
+			System.out.println(row);
 		
 	}catch(Exception e)
 		{
@@ -79,7 +79,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 
 	public int getRouteNo(String fromLocation, String toLocation) throws Exception {
 		String sql="select route_no from busroutes where from_location =? and to_location=?";
-		log.getInput(sql);
+		System.out.println(sql);
 		int e1 = 0;
 		try(Connection connection =DbConnection.getConnection() ;
 		
@@ -105,7 +105,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 
 	public List<BusRoutes> displayBusroutes() throws Exception {
 		String sql="select * from busroutes";
-		 log.getInput(sql);
+		 System.out.println(sql);
 		 List<BusRoutes> busroutes = new ArrayList<BusRoutes>();
 		 
 		try(Connection connection =DbConnection.getConnection() ;
@@ -133,7 +133,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 
 	public List<BusRoutes> fromLocations() throws Exception {
 		String sql="select from_location from busroutes";
-		 log.getInput(sql);
+		 System.out.println(sql);
 		 List<BusRoutes> busroutes = new ArrayList<BusRoutes>();
 		try(Connection connection =DbConnection.getConnection() ;
 		
@@ -156,7 +156,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 
 	public List<BusRoutes> toLocations() throws Exception {
 		String sql="select to_location from busroutes ";
-		 log.getInput(sql);
+		 System.out.println(sql);
 		 List<BusRoutes> busroutes = new ArrayList<BusRoutes>();
 		
 		try(Connection connection =DbConnection.getConnection() ;

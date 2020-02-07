@@ -25,11 +25,11 @@ public class TestBusDetails {
 		 
 	     // To find available of seats usuing travel id:
 		      // int available= bdl.availableSeats(10);
-            //   log.getInput(available);
+            //   System.out.println(available);
       
          //Display fair details:
 		       //int fair= bdl.fairDetails(10);
-		       // log.getInput(fair);
+		       // System.out.println(fair);
     
          //Dispaly fair using busname:	
 		       //displayFair();
@@ -39,7 +39,7 @@ public class TestBusDetails {
 		 
 		// Display busdetails using to location:    
 		     //  String busname=bdl.getBusName("Kovilpatti");
-		   // log.getInput(busname);
+		   // System.out.println(busname);
 		      
 		     // testInsert();
 	   
@@ -69,7 +69,7 @@ public class TestBusDetails {
 		BusDetailsDAOImpl bdl = new BusDetailsDAOImpl();
 		ArrayList<BusFare> fairdetails= bdl.getFairDetails("TAT");
 	 for (BusFare busFare : fairdetails) {
-		log.getInput(busFare);
+		System.out.println(busFare);
 	}
 		
 	}

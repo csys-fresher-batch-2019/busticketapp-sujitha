@@ -20,7 +20,7 @@ public class SeatDAOImpl {
 	
 	public int getBookedNumberOfSeats(int BusNum) throws Exception {
 		String s="select seat_no from booking where bus_num=?";
-		log.getInput(s);
+		System.out.println(s);
 		//Booking  b = new Booking();
 		int b = 0;
 		   ArrayList<Integer> l=new ArrayList<Integer>();
@@ -38,10 +38,10 @@ public class SeatDAOImpl {
 			   b = rs.getInt("seat_no");
 			   c++;
 			  l.add(b);
-			  log.getInput(b);
+			  System.out.println(b);
 			   
 			}
-		   log.getInput("Count : "+c);
+		   System.out.println("Count : "+c);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -52,7 +52,7 @@ public class SeatDAOImpl {
 	
 	public int getTotalNumberofSeats(int BusNum) throws Exception {
 		String s="select no_of_seats from buslist where bus_num=?";
-		log.getInput(s);
+		System.out.println(s);
          int a= 0;
 	try(	Connection connection=DbConnection.getConnection();
 	    PreparedStatement pst = connection.prepareStatement(s);
@@ -76,7 +76,7 @@ public class SeatDAOImpl {
 
 public ArrayList<Integer> getUnFilledSeatNo(LocalDate bookedDate, int busNum) throws Exception {
 	  String sql="select min_seat_no -1+level missing_number from (select min(1) min_seat_no,max(10) max_seat_no from booking)connect by  level <=max_seat_no-min_seat_no+1 minus select seat_no  as available_seats from booking where bus_num=? and booked_date=?";  
- 		log.getInput(sql);
+ 		System.out.println(sql);
  		int a1=0;
 		   ArrayList<Integer> unSeats=new ArrayList<Integer>();
 	try(Connection connection=DbConnection.getConnection();

@@ -21,7 +21,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO{
 	public void fairUpdate(int fair, int travelId) throws Exception {
      String strr ="update busdetails set fair =?where travel_id=?"; 
 		
-		log.getInput(strr);
+		System.out.println(strr);
 		try(Connection connection =DbConnection.getConnection() ;
 		
 		PreparedStatement pst = connection.prepareStatement(strr);)
@@ -29,7 +29,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO{
 		pst.setInt(1,fair);
 		pst.setInt(2,travelId);
 		int rows=pst.executeUpdate();
-		log.getInput(rows);
+		System.out.println(rows);
 		} catch(Exception e)
 		{
 			e.printStackTrace();
@@ -39,7 +39,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO{
 
 	public int availableSeats(int travelId) throws Exception {
 		String sql="select (bl.no_of_seats-bd.available_seats)availableSeats from  buslist bl,busdetails bd where bl.bus_num=bd.bus_num and bd.travel_id=?";
-		log.getInput(sql);
+		System.out.println(sql);
 		int a=0;
 		try(Connection connection =DbConnection.getConnection() ;
 
@@ -62,7 +62,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO{
 
 	public void addBusDetails(BusDetails bus) throws Exception {
 		String sql="insert into busdetails(travel_id,route_no,bus_num,travel_date,start_time,end_time,fair,available_seats)values(?,?,?,?,?,?,?,?)"  ;       
-		 log.getInput(sql);
+		 System.out.println(sql);
 		try(Connection connection =DbConnection.getConnection() ;
 		
 				 PreparedStatement pst = connection.prepareStatement(sql);)
@@ -77,7 +77,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO{
 					pst.setInt(8,bus.getAvailableSeats());
 					
 					int rows=pst.executeUpdate();
-					log.getInput(rows);
+					System.out.println(rows);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -86,7 +86,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO{
 
 	public int fairDetails(int travelId) throws Exception {
 		String sql ="select fair as f  from busdetails where travel_id=?";
-		log.getInput(sql);
+		System.out.println(sql);
 		int b = 0;
 	try(	Connection connection =DbConnection.getConnection() ;
 		PreparedStatement pst = connection.prepareStatement(sql);
@@ -112,7 +112,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO{
 		ArrayList<BusFare> busfares = new ArrayList<BusFare>();
 
 		String sql="select buslist.bus_name, busdetails.fair from buslist inner join busdetails on buslist.bus_num = busdetails.bus_num";
-		 log.getInput(sql);
+		 System.out.println(sql);
 		
 		try(Connection connection =DbConnection.getConnection() ;
 				PreparedStatement pst = connection.prepareStatement(sql);
@@ -142,7 +142,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO{
 
 	public int getAvailableSeats() throws Exception {
 		String sql="select tb.travel_id,bl.no_of_seats,bl.no_of_seats-sum(tb.no_of_seats_booked)  available_seats from buslist bl,ticket_booking tb,busdetails bd where bl.bus_num=bd.bus_num and bd.travel_id=tb.travel_id group by bl.no_of_seats,tb.travel_id,available_seats";
-		log.getInput(sql);
+		System.out.println(sql);
 		int d =0;
 		try(Connection connection =DbConnection.getConnection() ;
 				PreparedStatement pst = connection.prepareStatement(sql);
@@ -154,7 +154,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO{
 	int travelId=rs.getInt("travel_id");
 	int noOfSeat=rs.getInt("no_of_seats");
 	int availableSeat=rs.getInt("available_seats");
-    log.getInput(travelId+","+noOfSeat+","+availableSeat);
+    System.out.println(travelId+","+noOfSeat+","+availableSeat);
     }
 			}	}catch(Exception e)
 		{
@@ -165,7 +165,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO{
 
 	public String getBusName(String toLocation) throws Exception {
 		String sql="select bus_name,no_of_seats from buslist where bus_num=(select bus_num from busdetails where route_no = (select route_no from busroutes where to_location= ? ))";
-		 log.getInput(sql);
+		 System.out.println(sql);
 		 String e1 = null;
 		try(Connection connection =DbConnection.getConnection() ;
 		

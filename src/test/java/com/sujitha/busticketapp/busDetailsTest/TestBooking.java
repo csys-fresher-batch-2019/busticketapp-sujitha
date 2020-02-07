@@ -7,11 +7,12 @@ import java.util.Scanner;
 
 import com.sujitha.busticketapp.dao.impl.BookingDetailDAOImpl;
 import com.sujitha.busticketapp.dao.impl.SeatDAOImpl;
-
+import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.Booking;
 import com.sujitha.busticketapp.service.SeatService;
 
 public class TestBooking {
+	private static final Logger log=Logger.getInstance();
 
 	public static void main(String[] args) throws Exception {
 		
@@ -32,7 +33,7 @@ public class TestBooking {
 		BookingDetailDAOImpl bg = new BookingDetailDAOImpl();
 		
 		for (Booking bookings : booking) {
-			log.getInput(bookings);
+			System.out.println(bookings);
 			//bg.addUserBookingDetails(bookings);
 		}
 		//bg.addAvaialbleSeats(b,8);
@@ -56,32 +57,32 @@ public class TestBooking {
 		
 		
 		/* int no=sv.getNextSeatNo(b.getBookedDate(), b.getBusNum(), b.getUserGender(),b.getGenderPreference());
-		 log.getInput(no); 
+		 System.out.println(no); 
 		 booking.add(b); 
 		 Booking b3=bg.searchBySeatNo(b.getBookedDate(),b.getBusNum(),b.getSeatNo()); 
-		 log.getInput(b3.getSeatNo());
-		 log.getInput(b3.getUserGender());*/
+		 System.out.println(b3.getSeatNo());
+		 System.out.println(b3.getUserGender());*/
 		 
 		// String s= bg. getgenderPreferences(b.getSeatNo(),b.getUserGender());
-		// log.getInput(s);
+		// System.out.println(s);
 		
 		 /*HashMap<Integer, String> h=new HashMap<Integer, String>();
 		 h=bg.getSeatNoAndUserGender(101); 
 		 for(int k:h.keySet()) 
 		 { 
 			 String val=h.get(k);
-		log.getInput(k+" : "+val); 
+		System.out.println(k+" : "+val); 
 		}*/
 		
 		/*int booked=sd.getBookedNumberOfSeats(101);
-		log.getInput(booked);
+		System.out.println(booked);
 	   int t=sd.getTotalNumberofSeats(101);
-	   log.getInput(t);*/
+	   System.out.println(t);*/
 		/*ArrayList<Integer> l=new ArrayList<Integer>();
 		l=sd.getUnFilledSeatNo(b.getBookedDate(), b.getBusNum());
 		for(int s:l)
 		{
-			log.getInput(s);
+			System.out.println(s);
 		}*/
 		//sd.getInsertUnFiledSeats(b.getBusNum(), 2, b.getBookedDate());
 		

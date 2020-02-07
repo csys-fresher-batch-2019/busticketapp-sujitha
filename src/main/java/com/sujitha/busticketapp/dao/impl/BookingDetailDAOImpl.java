@@ -102,10 +102,10 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 
 		
 		//String s= getgenderPreferences(booking.getSeatNo(),booking.getUserGender());
-		// log.getInput(s);
+		// System.out.println(s);
 		String sql1 = "select no_of_seats from buslist where bus_num=?";
 		String str = "insert into booking(user_id,travel_id,bus_num,user_gender,seat_no,booked_date,gender_preferences) values(?,?,?,?,?,?,?)";
-		log.getInput(str);
+		System.out.println(str);
 
 		try(Connection connection = DbConnection.getConnection();
            PreparedStatement pst1 = connection.prepareStatement(sql1);ResultSet rs = pst1.executeQuery();PreparedStatement pst = connection.prepareStatement(str);)
@@ -119,7 +119,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 			totalSeats = rs.getInt("no_of_seats");
 		}
 		boolean isSeatsAvailable = totalSeats >= booking.getSeatNo();
-		log.getInput("SeatsAvailable:" + isSeatsAvailable + ",totalSeats=" + totalSeats + ",booking Seat NO:" + booking.getSeatNo());
+		System.out.println("SeatsAvailable:" + isSeatsAvailable + ",totalSeats=" + totalSeats + ",booking Seat NO:" + booking.getSeatNo());
 		if (isSeatsAvailable) {
 
 			
@@ -135,10 +135,10 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
             if(booking.getSeatNo()!=0)
             {
 			int rows = pst.executeUpdate();
-			log.getInput(rows);
+			System.out.println(rows);
             }
             else
-            	log.getInput("seats are not available");
+            	System.out.println("seats are not available");
             
 		}
 	}catch(Exception e)
@@ -150,7 +150,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 	
    public void addAvaialbleSeats(Booking booking,int seatNo) throws Exception {
 	   String str = "insert into booking(user_id,travel_id,bus_num,user_gender,seat_no,booked_date,gender_preferences) values(?,?,?,?,?,?,?)";
-		log.getInput(str);
+		System.out.println(str);
 		HashMap<String, String> hm=new HashMap<String, String>();
 		SeatDAOImpl si=new SeatDAOImpl(); String gender=null;
 		   String gender_preference=null;
@@ -165,7 +165,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 	       gender_preference=hm.get(s);
 	       
 	   }
-	   log.getInput(gender+"  "+gender_preference);
+	   System.out.println(gender+"  "+gender_preference);
 	  
 
 		
@@ -181,21 +181,21 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 	   if(booking.getUserGender().equals(gender) && booking.getGenderPreference().equals(gender_preference))
 	   {
 		   int rows = pst.executeUpdate();
-		   log.getInput("seats are available");
+		   System.out.println("seats are available");
 	   }
 	   else if(booking.getUserGender().equals(gender) && (!booking.getGenderPreference().equals(gender_preference))) 
 	   {
 		   int rows = pst.executeUpdate();
-		   log.getInput("seats are available");
+		   System.out.println("seats are available");
 	   }
 	   else if(!booking.getUserGender().equals(gender)  && (booking.getGenderPreference().equals("no") && gender_preference.equals("no")))
 	   {
 		   int rows = pst.executeUpdate();
-		   log.getInput("seats are available");
+		   System.out.println("seats are available");
 	   }
 	   
 	   else
-		   log.getInput("seats are not available");
+		   System.out.println("seats are not available");
 	
 	   
  }catch(Exception e)
@@ -209,13 +209,13 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 		 SeatDAOImpl sdi = new SeatDAOImpl();
 		  ArrayList<Integer> ai = new  ArrayList<Integer> ();
 		 ai= sdi. getUnFilledSeatNo(booking.getBookedDate(), booking.getBusNum());
-		 log.getInput("***Un filled seats***\n");
+		 System.out.println("***Un filled seats***\n");
 		 for(int seat:ai) {
 			 
-		 log.getInput(seat);
+		 System.out.println(seat);
 		}
 		 Scanner sc= new Scanner(System.in);
-		 log.getInput("Enter the seat no: ");
+		 System.out.println("Enter the seat no: ");
 		 int s=sc.nextInt();
 		 addAvaialbleSeats(booking, s);
 		 

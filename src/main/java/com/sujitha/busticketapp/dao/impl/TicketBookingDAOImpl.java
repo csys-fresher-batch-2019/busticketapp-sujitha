@@ -42,7 +42,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 	public int getNoOfSeatsBooked(int travelId) throws Exception
 	{
 		String n =" select sum(no_of_seats_booked) no_of_seats_booked from ticket_booking where travel_id=? ";
-		  log.getInput(n);
+		  System.out.println(n);
 		  int s=0;
 		try(Connection connection =DbConnection.getConnection() ;
 	     PreparedStatement pst = connection.prepareStatement(n);
@@ -62,7 +62,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 
 	public int totalPayment(String status) throws Exception {
 		String sql ="select sum(payment) as payment from ticket_booking where status=?";
-		 log.getInput(sql);
+		 System.out.println(sql);
 		 int f=0;
 		try(Connection connection =DbConnection.getConnection() ;
 	    PreparedStatement pst = connection.prepareStatement(sql);
@@ -85,7 +85,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 
 	public ArrayList<BusSeatsBooked> totalNoOfSeatsBooked(String status) throws Exception {
 		String sql ="select booked_date,count(no_of_seats_booked) as total_seats from ticket_booking where status= ? group by booked_date";
-		log.getInput(sql);
+		System.out.println(sql);
 		ArrayList<BusSeatsBooked> list = new ArrayList<BusSeatsBooked>();
 		try(Connection connection =DbConnection.getConnection() ;
 		PreparedStatement pst = connection.prepareStatement(sql);
@@ -112,7 +112,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 
 	public int getSeatNo(int travelId, int userId) throws Exception {
 		String sql="select  count(b.seat_no) as ticket_count from booking b  where travel_id=?  and user_id=?"; 
-		log.getInput(sql);
+		System.out.println(sql);
 		int f=0;
 		try(Connection connection =DbConnection.getConnection() ;
 		PreparedStatement pst = connection.prepareStatement(sql);

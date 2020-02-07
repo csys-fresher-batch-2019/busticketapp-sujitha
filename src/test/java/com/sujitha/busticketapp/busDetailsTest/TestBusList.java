@@ -8,9 +8,11 @@ import java.util.List;
 
 import com.sujitha.busticketapp.DbConnection;
 import com.sujitha.busticketapp.dao.impl.BusListDAOImpl;
+import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.BusList;
 
 public class TestBusList {
+	private static final Logger log=Logger.getInstance();
 	
 
 	public static void main(String[] args)throws Exception {
@@ -27,11 +29,11 @@ public class TestBusList {
 		//To Display busName by using busNum
 				
 				//String ss=bli.busName(102);
-			//log.getInput(ss);		
+			//System.out.println(ss);		
 			
     	//To  Display NoOfSeats by giving busNum
 				//    int seats = bli.noOfSeats(102);
-				//log.getInput(seats);		
+				//System.out.println(seats);		
 				
 		//Select the details by using List
 				//   DisplayBusDeatils();
@@ -48,7 +50,7 @@ public class TestBusList {
 			list=bli.allBusListDetails();
 			for(BusList busList:list)
 			{
-				log.getInput(busList);
+				System.out.println(busList);
 			}
 	 }
 	 
@@ -69,15 +71,15 @@ public class TestBusList {
 			
 			//Connection connection =DbConnection.getConnection() ; 
 			//String sql="insert into buslist(bus_num,bus_name,no_of_seats,seat_type)values(50,'TAt',048,'sleeper')";
-			//log.getInput(sql);
+			//System.out.println(sql);
 			//Statement stmt=connection.createStatement();
 			//int row=stmt.executeUpdate(sql);
-			//log.getInput(row);
+			//System.out.println(row);
 			//String s="update buslist set bus_name ='SRM' where bus_num=101";
-			//log.getInput(s);
+			//System.out.println(s);
 			//Statempent stm=connection.createStatement();
 			//int row1=stm.executeUpdate(s);
-			//log.getInput(row1);
+			//System.out.println(row1);
 	 
 	 
 	 

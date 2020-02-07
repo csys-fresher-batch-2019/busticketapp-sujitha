@@ -17,7 +17,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 
 	public void getUserDetails(String userName, long userPhnNum, String userGender,String password) throws Exception {
 		String str="insert into user_details(user_id ,user_name,user_phn_num,user_gender,password)values(user_id_seq.nextval,?,?,?,?)";
-		log.getInput(str);
+		System.out.println(str);
 		try(Connection connection =DbConnection.getConnection() ;
 	    PreparedStatement pst = connection.prepareStatement(str);)
 		{
@@ -26,7 +26,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		pst.setString(3,userGender);
 		pst.setString(4,password);
 		int rows=pst.executeUpdate();
-		log.getInput(rows);
+		System.out.println(rows);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -37,7 +37,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		try(Connection connection =DbConnection.getConnection() ;)
 		{
 		String sql="update user_details set user_phn_num=? where user_id=?";
-		log.getInput(sql);
+		System.out.println(sql);
 		try
 		(PreparedStatement pst = connection.prepareStatement(sql);)
 		{
@@ -45,10 +45,10 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		 pst.setInt(2,userId);
 		int row=pst.executeUpdate(sql);
 		
-		log.getInput(row);
+		System.out.println(row);
 		}
 		String ss= "select user_id,user_name,user_phn_num from user_details where user_id=?";
-		log.getInput(ss);
+		System.out.println(ss);
 		try
 		(PreparedStatement pst1 = connection.prepareStatement(ss);ResultSet rs=pst1.executeQuery(ss);)
 		{
@@ -58,7 +58,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		{
 			int id = rs.getInt("user_id");
 		String username=rs.getString("user_phn_num");
-		log.getInput(id + "-" + username);
+		System.out.println(id + "-" + username);
 		}
 		}
 		}catch(Exception e)
@@ -70,7 +70,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 	public String getUserGender(int userId) throws Exception {
 		
 		String strn="select user_gender from user_details where user_id=?";
-		log.getInput(strn);
+		System.out.println(strn);
 		String a= null;
 		try(Connection connection =DbConnection.getConnection() ;
 		
@@ -95,7 +95,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 
 	  public int getGenderCount(String  userGender) throws Exception {
 		  String sql ="select count (*)user_gender from user_details where user_gender=?";
-			log.getInput(sql);
+			System.out.println(sql);
 			int v=0;
 		try(Connection connection =DbConnection.getConnection(); 
 		
@@ -121,7 +121,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		ArrayList<UserDetails> list=new ArrayList<UserDetails>();
 		Connection connection =DbConnection.getConnection();
 		String sql="select * from user_details";
-		log.getInput(sql);
+		System.out.println(sql);
 		Statement stmt=connection.createStatement();
 		ResultSet rs=stmt.executeQuery(sql);
 		
@@ -138,7 +138,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 
 	public void addUserDetails(UserDetails userdetails) throws Exception {
 		String sql="insert into user_details(user_id ,user_name,user_phn_num,user_gender)values(?,?,?,?)";
-		log.getInput(sql);
+		System.out.println(sql);
 		try(Connection connection =DbConnection.getConnection();
 		
 		PreparedStatement pst = connection.prepareStatement(sql);)
@@ -148,7 +148,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		pst.setLong(3,userdetails.getUserPhnNum());
 		pst.setString(4,userdetails.getUserGender().toString());
 		int rows=pst.executeUpdate();
-		log.getInput(rows);
+		System.out.println(rows);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -158,7 +158,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 
 	public void updateUG(int userID,UserGenderEnum userGender) throws Exception {
 		String sql="UPDATE USER_DETAILS SET USER_GENDER=? WHERE USER_ID=?";
-		log.getInput(sql);
+		System.out.println(sql);
 		try(Connection connection =DbConnection.getConnection();
 		
 		PreparedStatement pst = connection.prepareStatement(sql);)
@@ -168,7 +168,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		pst.setInt(2,userID);
 		
 		int rows=pst.executeUpdate();
-		log.getInput(rows);
+		System.out.println(rows);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -176,7 +176,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 	}
 	public void login(long userPhnNum, String password) throws Exception {
 		String sql = "select user_phn_num,password from user_details where user_phn_num=? and password = ?";
-		log.getInput(sql);
+		System.out.println(sql);
         try(Connection connection=DbConnection.getConnection();
         		PreparedStatement pst = connection.prepareStatement(sql);
         		)
@@ -186,10 +186,10 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		if (row.next())
 		{
 		 
-			log.getInput("Successfully Login");
+			System.out.println("Successfully Login");
 		}
 		else {
-			log.getInput("Login Details are invalid");
+			System.out.println("Login Details are invalid");
 		}
 		
 		

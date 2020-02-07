@@ -6,19 +6,21 @@ import java.util.List;
 
 import com.sujitha.busticketapp.dao.impl.TicketBookingDAOImpl;
 import com.sujitha.busticketapp.dto.BusSeatsBooked;
+import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.TicketBooking;
 
 public class TestTicektBooking {
+	private static final Logger log=Logger.getInstance();
 
 	public static void main(String[] args) throws Exception {
 		TicketBookingDAOImpl tbl = new TicketBookingDAOImpl();
 		
 		//Display no of seats booked by using travelid: 
 		       int bookedseats=tbl.getNoOfSeatsBooked(10);
-		       log.getInput(bookedseats);
+		       System.out.println(bookedseats);
 		//Display total payment:
              //int payment=tbl.totalPayment("booked");
-              //log.getInput(payment);
+              //System.out.println(payment);
 		
 		
 		// Insert all data:
@@ -48,7 +50,7 @@ public class TestTicektBooking {
 	tb.setBookedDate(LocalDate.parse("2020-01-31"));
 	
 	int f=  tbl.getSeatNo(tb.getTravelId(), tb.getUserId());
-	log.getInput(f);
+	System.out.println(f);
 	tb.setNoOfSeatsBooked(f);
 	tb.setPayment(tb.getNoOfSeatsBooked()*tb.getFair());
 	if(tb.getPayment()!=0)
@@ -61,7 +63,7 @@ public class TestTicektBooking {
 	for(TicketBooking ticket:List)
 	{
 		tbl.addBookingDetails(ticket);
-		log.getInput(ticket);
+		System.out.println(ticket);
 	}
 	
 	
@@ -71,7 +73,7 @@ public class TestTicektBooking {
 		TicketBookingDAOImpl tbl = new TicketBookingDAOImpl();
         ArrayList<BusSeatsBooked> seatsdetails= tbl.totalNoOfSeatsBooked("booked");
 		for(BusSeatsBooked seats: seatsdetails) {
-			log.getInput(seats);
+			System.out.println(seats);
 		}
 		
 	}
