@@ -14,11 +14,11 @@ public class TestTicektBooking {
 		TicketBookingDAOImpl tbl = new TicketBookingDAOImpl();
 		
 		//Display no of seats booked by using travelid: 
-		       //int bookedseats=tbl.getNoOfSeatsBooked(10);
-		       //System.out.println(bookedseats);
+		       int bookedseats=tbl.getNoOfSeatsBooked(10);
+		       log.getInput(bookedseats);
 		//Display total payment:
              //int payment=tbl.totalPayment("booked");
-             // System.out.println(payment);
+              //log.getInput(payment);
 		
 		
 		// Insert all data:
@@ -41,27 +41,27 @@ public class TestTicektBooking {
 	List<TicketBooking> List=new ArrayList<TicketBooking>();
 	TicketBooking tb=new TicketBooking();
 	
-	tb.travelId=10;
-	tb.userId=12;
-	tb.fair=800;
-	tb.jDate=LocalDate.parse("2020-02-02");
-	tb.bookedDate=LocalDate.parse("2020-01-31");
+	tb.setTravelId(10);
+	tb.setUserId(12);
+	tb.setFair(800);
+	tb.setjDate(LocalDate.parse("2020-02-02"));
+	tb.setBookedDate(LocalDate.parse("2020-01-31"));
 	
-	int f=  tbl.getSeatNo(tb.travelId, tb.userId);
-	System.out.println(f);
-	tb.noOfSeatsBooked=f;
-	tb.payment=tb.noOfSeatsBooked*tb.fair;
-	if(tb.payment!=0)
+	int f=  tbl.getSeatNo(tb.getTravelId(), tb.getUserId());
+	log.getInput(f);
+	tb.setNoOfSeatsBooked(f);
+	tb.setPayment(tb.getNoOfSeatsBooked()*tb.getFair());
+	if(tb.getPayment()!=0)
 	{
-		tb.status="booked";
+		tb.setStatus("booked");
 	}
 	else
-		tb.status="cancelled";
+		tb.setStatus("cancelled");
 	List.add(tb);
 	for(TicketBooking ticket:List)
 	{
 		tbl.addBookingDetails(ticket);
-		System.out.println(ticket);
+		log.getInput(ticket);
 	}
 	
 	
@@ -71,7 +71,7 @@ public class TestTicektBooking {
 		TicketBookingDAOImpl tbl = new TicketBookingDAOImpl();
         ArrayList<BusSeatsBooked> seatsdetails= tbl.totalNoOfSeatsBooked("booked");
 		for(BusSeatsBooked seats: seatsdetails) {
-			System.out.println(seats);
+			log.getInput(seats);
 		}
 		
 	}

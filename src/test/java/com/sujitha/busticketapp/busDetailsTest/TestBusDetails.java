@@ -6,28 +6,30 @@ import java.util.ArrayList;
 
 import com.sujitha.busticketapp.dao.impl.BusDetailsDAOImpl;
 import com.sujitha.busticketapp.dto.BusFare;
+import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.BusDetails;
 
 public class TestBusDetails {
-
+	private static final Logger log=Logger.getInstance();
 	public static void main(String[] args) throws Exception {
+		
 		
       
 		BusDetailsDAOImpl bdl = new BusDetailsDAOImpl();
 		
 		 // update bus fair using travelid:
-             //bdl.fairUpdate(1000, 30);
+             //bdl.fairUpdate(750, 30);
 		
          // Add Busdetails:
-		         // testInsert();
+		        // testInsert();
 		 
 	     // To find available of seats usuing travel id:
-		       //int available= bdl.availableSeats(10);
-               //System.out.println(available);
+		      // int available= bdl.availableSeats(10);
+            //   log.getInput(available);
       
          //Display fair details:
-		      //  int fair= bdl.fairDetails(10);
-		       // System.out.println(fair);
+		       //int fair= bdl.fairDetails(10);
+		       // log.getInput(fair);
     
          //Dispaly fair using busname:	
 		       //displayFair();
@@ -36,8 +38,8 @@ public class TestBusDetails {
 		   // bdl.getAvailableSeats();
 		 
 		// Display busdetails using to location:    
-		       String busname=bdl.getBusName("Kovilpatti");
-		    System.out.println(busname);
+		     //  String busname=bdl.getBusName("Kovilpatti");
+		   // log.getInput(busname);
 		      
 		     // testInsert();
 	   
@@ -49,14 +51,14 @@ public class TestBusDetails {
     	ArrayList<BusDetails> busdetail= new ArrayList<BusDetails>();
  	      BusDetails	bd = new BusDetails();
  	     BusDetailsDAOImpl bdl = new BusDetailsDAOImpl();
- 	         bd.travelId=40;
- 	         bd.routeNo=4;
- 	         bd.busNum=300;
-             bd.travelDate= LocalDate.parse("2019-01-01");
-             bd.startTime=LocalTime.parse("16:00");
-             bd.endTime=LocalTime.parse("19:00");
-             bd.fair=900;
-             bd.availableSeats=20;
+ 	         bd.setTravelId(40);
+ 	         bd.setRouteNo(4);
+ 	         bd.setBusNum(104);
+             bd.setTravelDate(LocalDate.parse("2019-01-01"));
+             bd.setStartTime(LocalTime.parse("16:00"));
+             bd.setEndTime(LocalTime.parse("19:00"));
+             bd.setFair(900);
+             bd.setAvailableSeats(20);
  	  busdetail.add(bd);
 	        for(BusDetails busdetl:busdetail) {
         bdl.addBusDetails(busdetl);
@@ -67,7 +69,7 @@ public class TestBusDetails {
 		BusDetailsDAOImpl bdl = new BusDetailsDAOImpl();
 		ArrayList<BusFare> fairdetails= bdl.getFairDetails("TAT");
 	 for (BusFare busFare : fairdetails) {
-		System.out.println(busFare);
+		log.getInput(busFare);
 	}
 		
 	}

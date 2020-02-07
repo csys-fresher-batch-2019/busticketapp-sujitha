@@ -19,20 +19,20 @@ public class TestBooking {
 		
 		ArrayList<Booking> booking = new ArrayList<Booking>();
 		Booking b = new Booking();
-		b.userId = 13;
-		b.travelId = 10;
+		b.setUserId(13);
+		b.setTravelId(10);
 		
-		b.busNum = 101;
-		b.userGender = "F";
-		b.bookedDate = LocalDate.parse("2019-12-10");
-		b.genderPreference = "yes";
+		b.setBusNum(101);
+		b.setUserGender("F");
+		b.setBookedDate(LocalDate.parse("2019-12-10"));
+		b.setGenderPreference("yes");
 		
 		booking.add(b);
 		
 		BookingDetailDAOImpl bg = new BookingDetailDAOImpl();
 		
 		for (Booking bookings : booking) {
-			System.out.println(bookings);
+			log.getInput(bookings);
 			//bg.addUserBookingDetails(bookings);
 		}
 		//bg.addAvaialbleSeats(b,8);
@@ -55,35 +55,35 @@ public class TestBooking {
 		
 		
 		
-		/*	/* int no=sv.getNextSeatNo(b.bookedDate, b.busNum, b.userGender,b.genderPreference);
-		 System.out.println(no); 
-		 booking.add(b1); 
-		 Booking b3=bg.searchBySeatNo(b. bookedDate,b. busNum,b. seatNo); 
-		 System.out.println(b3.seatNo);
-		 System.out.println(b3.userGender);*/
+		/* int no=sv.getNextSeatNo(b.getBookedDate(), b.getBusNum(), b.getUserGender(),b.getGenderPreference());
+		 log.getInput(no); 
+		 booking.add(b); 
+		 Booking b3=bg.searchBySeatNo(b.getBookedDate(),b.getBusNum(),b.getSeatNo()); 
+		 log.getInput(b3.getSeatNo());
+		 log.getInput(b3.getUserGender());*/
 		 
-		// String s= bg. getgenderPreferences(b.seatNo,b.userGender);
-		// System.out.println(s);
+		// String s= bg. getgenderPreferences(b.getSeatNo(),b.getUserGender());
+		// log.getInput(s);
 		
-		/* HashMap<Integer, String> h=new HashMap<Integer, String>();
+		 /*HashMap<Integer, String> h=new HashMap<Integer, String>();
 		 h=bg.getSeatNoAndUserGender(101); 
 		 for(int k:h.keySet()) 
 		 { 
 			 String val=h.get(k);
-		System.out.println(k+" : "+val); 
+		log.getInput(k+" : "+val); 
 		}*/
 		
 		/*int booked=sd.getBookedNumberOfSeats(101);
-		System.out.println(booked);
+		log.getInput(booked);
 	   int t=sd.getTotalNumberofSeats(101);
-	   System.out.println(t);*/
+	   log.getInput(t);*/
 		/*ArrayList<Integer> l=new ArrayList<Integer>();
-		l=sd.getUnFilledSeatNo(b.bookedDate, b.busNum);
+		l=sd.getUnFilledSeatNo(b.getBookedDate(), b.getBusNum());
 		for(int s:l)
 		{
-			System.out.println(s);
+			log.getInput(s);
 		}*/
-		//sd.getInsertUnFiledSeats(b.busNum, 2, b.bookedDate);
+		//sd.getInsertUnFiledSeats(b.getBusNum(), 2, b.getBookedDate());
 		
 		
 	

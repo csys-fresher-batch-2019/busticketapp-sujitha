@@ -2,9 +2,25 @@ package com.sujitha.busticketapp.dto;
 
 public class BusFare {
 
-	public String busName;
+	private String busName;
 	
-	public int fare;
+	private int fare;
+
+	public String getBusName() {
+		return busName;
+	}
+
+	public void setBusName(String busName) {
+		this.busName = busName;
+	}
+
+	public int getFare() {
+		return fare;
+	}
+
+	public void setFare(int fare) {
+		this.fare = fare;
+	}
 
 	@Override
 	public String toString() {

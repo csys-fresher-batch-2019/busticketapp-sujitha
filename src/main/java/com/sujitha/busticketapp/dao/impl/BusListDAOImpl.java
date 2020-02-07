@@ -10,34 +10,36 @@ import java.util.List;
 
 import com.sujitha.busticketapp.DbConnection;
 import com.sujitha.busticketapp.dao.BusListDAO;
+import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.BusList;
 
 public class BusListDAOImpl implements BusListDAO  {
+	private static final Logger log=Logger.getInstance();
 	//public void BusListDisplay(int busNum,String busName,int noOfSeats,String seatType) {
 	//	String str="insert into buslist(busNum,busName,noOfSeats,seatType)values('"+ busNum +"','"+busName+"','"+noOfSeats+"','"+seatType+"')";
-		//System.out.println(str);
+		//log.getInput(str);
 		
 	//}
 	//public void ListDisplay(BusList buslist) {
 		//String sql="insert into buslist(busNum,busName,noOfSeats,seatType)values('"+buslist.busNum +"','"+buslist.busName+"','"+buslist.noOfSeats+"','"+buslist.seatType+"')";
-		//System.out.println(sql);
+		//log.getInput(sql);
 	//}
 	public void busList(int busNum, String busName, int noOfSeats, String seatType) throws Exception  {
 
 		String sql="insert into buslist(bus_num,bus_name,no_of_seats,seat_type)values(?,?,?,?)";
-		System.out.println(sql);
+		log.getInput(sql);
 		try(Connection connection =DbConnection.getConnection() ;
 		
 		PreparedStatement pst = connection.prepareStatement(sql);)
 		{
-		pst.setString(1,busName);
-		pst.setInt(2,busNum);
+		pst.setInt(1,busNum);
+		pst.setString(2,busName);
 		pst.setInt(3,noOfSeats);
 		pst.setString(4,seatType);
 		if(noOfSeats<=10)
 		{
-				int row=pst.executeUpdate(sql);
-				System.out.println(row);
+				int row=pst.executeUpdate();
+				log.getInput(row);
 		}
 		}catch(Exception e)
 		{
@@ -47,7 +49,7 @@ public class BusListDAOImpl implements BusListDAO  {
 	}
 	public void busNameUpdate(String busName, int busNum) throws Exception  {
 		String s="update buslist set bus_name =? where bus_num=?";
-		System.out.println(s);
+		log.getInput(s);
 		try(Connection connection =DbConnection.getConnection() ;
 		
 				PreparedStatement pst = connection.prepareStatement(s);)
@@ -55,7 +57,7 @@ public class BusListDAOImpl implements BusListDAO  {
 				pst.setString(1,busName);
 				pst.setInt(2,busNum);
 				int rows=pst.executeUpdate();
-				System.out.println(rows);
+				log.getInput(rows);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -64,21 +66,24 @@ public class BusListDAOImpl implements BusListDAO  {
 	public String busName(int busNum) throws Exception {
 		
 		String name="select bus_name from buslist where bus_num=?";
-		System.out.println(name);
+		log.getInput(name);
 		String s = null;
 	try(Connection connection = DbConnection.getConnection();
 		PreparedStatement pst = connection.prepareStatement(name);
-		ResultSet rs=pst.executeQuery();)
+		)
 	{
 
 		
 		pst.setInt(1,busNum);
+		
+		try(ResultSet rs=pst.executeQuery();)
+		{
 		while(rs.next())
 		{
 			 s= rs.getString("bus_name");
 			
 		}
-	}catch(Exception e)
+		}}catch(Exception e)
 	{
 		e.printStackTrace();
 	}
@@ -87,18 +92,21 @@ public class BusListDAOImpl implements BusListDAO  {
 	}
 	public int noOfSeats(int busNum) throws Exception {
 		String seats="select no_of_seats from buslist where bus_num=?";
-		System.out.println(seats);
+		log.getInput(seats);
 		int s = 0;
-		try(Connection connection=DbConnection.getConnection();
-		
-		PreparedStatement pst = connection.prepareStatement(seats);
-		ResultSet rows=pst.executeQuery();)
+		try(Connection connection=DbConnection.getConnection();	PreparedStatement pst = connection.prepareStatement(seats);)
 		{
 			pst.setInt(1,busNum);
+		try(ResultSet rows=pst.executeQuery();)
+				{
+			
 		while(rows.next())
 		{
 			 s= rows.getInt("no_of_seats");
 			
+		}
+		//log.getInput(s);
+		
 		}
 		}catch(Exception e)
 		{
@@ -109,21 +117,22 @@ public class BusListDAOImpl implements BusListDAO  {
 	public List<BusList> allBusListDetails() throws Exception {
 		List<BusList> list=new ArrayList<BusList>();
 		String sql = "select*from buslist";
-		System.out.println(sql);
+		log.getInput(sql);
 		try(Connection connection=DbConnection.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
-		ResultSet rs=pst.executeQuery();)
+		)
 		{
+			try(ResultSet rs=pst.executeQuery();){
 		while(rs.next())
 		{
 			BusList bl=new BusList();
-			bl.busNum=rs.getInt("bus_num");
-			bl.busName=rs.getString("bus_name");
-			bl.noOfSeats=rs.getInt("no_of_seats");
-			bl.seatType=rs.getString("seat_type");
+			bl.setBusNum(rs.getInt("bus_num"));
+			bl.setBusName(rs.getString("bus_name"));
+			bl.setNoOfSeats(rs.getInt("no_of_seats"));
+			bl.setSeatType(rs.getString("seat_type"));
 		list.add(bl);		
 		}
-		}catch(Exception e)
+			}}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -132,7 +141,7 @@ public class BusListDAOImpl implements BusListDAO  {
 	public void deleteBusName(String busName) throws Exception {
 		
 		String sql ="delete from buslist where bus_name=?";
-		System.out.println(sql);
+		log.getInput(sql);
 		try(Connection connection=DbConnection.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);)
 		{
@@ -140,12 +149,12 @@ public class BusListDAOImpl implements BusListDAO  {
 			pst.setString(1,busName);
 			int row=pst.executeUpdate(sql);
 		
-		System.out.println(row);
+		log.getInput(row);
 		}catch(Exception e) {
-			System.out.println(e);
+			log.getInput(e);
 		}
 		finally{
-		System.out.println("There are child records found");
+		log.getInput("There are child records found");
 		}
 		
 		}	catch(Exception e)

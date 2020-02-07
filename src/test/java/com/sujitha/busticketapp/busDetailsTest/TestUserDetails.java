@@ -81,7 +81,7 @@ public class TestUserDetails {
        // System.out.println(count);
 	
 	
-	/*ArrayList<UserDetails> userdetails=new ArrayList<UserDetails>();
+	ArrayList<UserDetails> userdetails=new ArrayList<UserDetails>();
 
 	UserDetails ul= new UserDetails();
 	ul.userId=17;

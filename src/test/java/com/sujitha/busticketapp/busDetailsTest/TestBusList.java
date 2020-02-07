@@ -18,26 +18,26 @@ public class TestBusList {
 		
 		BusListDAOImpl bli = new BusListDAOImpl();
 		//Insert the details:
-				//bli.busList(104,"AVK",10,"seater");
+				//bli.busList(106,"AKV",10,"seater");
 				
 		//Update busName by using busNum
-				//bli.busNameUpdate("TSS",103);
+			//	bli.busNameUpdate("TVS",103);
 	  
 				
 		//To Display busName by using busNum
 				
-				String ss=bli.busName(102);
-				System.out.println(ss);		
+				//String ss=bli.busName(102);
+			//log.getInput(ss);		
 			
     	//To  Display NoOfSeats by giving busNum
-				     int seats = bli.noOfSeats(102);
-				   System.out.println(seats);		
+				//    int seats = bli.noOfSeats(102);
+				//log.getInput(seats);		
 				
 		//Select the details by using List
-				   DisplayBusDeatils();
+				//   DisplayBusDeatils();
 		
 		// To Delete busName*/
-		          bli.deleteBusName("TSS");
+		         // bli.deleteBusName("TSS");
 		} 
 	
 	
@@ -48,7 +48,7 @@ public class TestBusList {
 			list=bli.allBusListDetails();
 			for(BusList busList:list)
 			{
-				System.out.println(busList);
+				log.getInput(busList);
 			}
 	 }
 	 
@@ -69,15 +69,15 @@ public class TestBusList {
 			
 			//Connection connection =DbConnection.getConnection() ; 
 			//String sql="insert into buslist(bus_num,bus_name,no_of_seats,seat_type)values(50,'TAt',048,'sleeper')";
-			//System.out.println(sql);
+			//log.getInput(sql);
 			//Statement stmt=connection.createStatement();
 			//int row=stmt.executeUpdate(sql);
-			//System.out.println(row);
+			//log.getInput(row);
 			//String s="update buslist set bus_name ='SRM' where bus_num=101";
-			//System.out.println(s);
+			//log.getInput(s);
 			//Statempent stm=connection.createStatement();
 			//int row1=stm.executeUpdate(s);
-			//System.out.println(row1);
+			//log.getInput(row1);
 	 
 	 
 	 

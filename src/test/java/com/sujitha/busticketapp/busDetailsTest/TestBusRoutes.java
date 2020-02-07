@@ -13,24 +13,24 @@ public class TestBusRoutes {
 	public static void main(String[] args) throws Exception {
 		BusRoutesDAOImpl br= new BusRoutesDAOImpl();
 		// Insert the bus routes:
-		      //br.busRouteAdd(4,"Trichy","Madurai");
+		     // br.busRouteAdd(5,"Thirunelveli","Madurai");
 		// Update the details:
-		     // br.routeNoUpdate(4,"Bangloreee");
-   // int a=  br.getRouteNo("chennai", "Kovilpatti");
-   // System.out.println(a);
+		   //   br.routeNoUpdate(4,"Virudhunagar");
+   //int a=  br.getRouteNo("chennai", "Kovilpatti");
+  //  log.getInput(a);
        
 	  
-	  /* List<BusRoutes> routes=br.displayBusroutes();
+	 /* List<BusRoutes> routes=br.displayBusroutes();
 	   for(BusRoutes route:routes) {
-		   System.out.println(route);
+		   log.getInput(route);
 	   }  */ 
 		   List<BusRoutes> bus=br.fromLocations();
 		   for(BusRoutes r:bus) {
-			   System.out.println(r.fromLocation);
+			   log.getInput(r.getFromLocation());
 		   }	  
 			 List<BusRoutes> rout=br.toLocations();
 			   for(BusRoutes ro:rout) {
-				   System.out.println(ro.toLocation);
+				   log.getInput(ro.getToLocation());
 			   }	   
 			    
 	  
