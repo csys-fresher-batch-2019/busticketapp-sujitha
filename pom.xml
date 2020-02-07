@@ -3,6 +3,11 @@
   <groupId>com.sujitha.busticketapp</groupId>
   <artifactId>busapp</artifactId>
   <version>3.0.0</version>
+	
+	  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
   	<dependencies>
   	<dependency>
 			<groupId>javax.servlet</groupId>
