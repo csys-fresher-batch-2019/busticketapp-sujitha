@@ -1,7 +1,11 @@
 package com.sujitha.busticketapp.model;
 
 public class BusRoutes {
-	 int routeNo;
-	 String fromLocation;
-	String toLocation;
+	public int routeNo;
+	public String fromLocation;
+	public String toLocation;
+	@Override
+	public String toString() {
+		return "BusRoutes [routeNo=" + routeNo + ", fromLocation=" + fromLocation + ", toLocation=" + toLocation + "]";
+	}
 }

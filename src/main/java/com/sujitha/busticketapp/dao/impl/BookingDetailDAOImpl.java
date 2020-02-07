@@ -19,18 +19,20 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 
 	public int getLastSeatNo(LocalDate bookedDate, int BusNum) throws Exception {
 		int seats = 0;
-		Connection connection = DbConnection.getConnection();
-
 		String sql = " select max(seat_no) as seat_no from booking where booked_date=? and bus_num= ?";
 
-		PreparedStatement pst = connection.prepareStatement(sql);
-		pst.setDate(1, Date.valueOf(bookedDate));
-		pst.setInt(2, BusNum);
-		ResultSet rs = pst.executeQuery();
+		try(Connection connection = DbConnection.getConnection();PreparedStatement pst = connection.prepareStatement(sql);ResultSet rs = pst.executeQuery();)
+		{
+		   pst.setDate(1, Date.valueOf(bookedDate));
+		  pst.setInt(2, BusNum);
+		  if (rs.next()) {
+			  seats = rs.getInt("seat_no");
 
-		if (rs.next()) {
-			seats = rs.getInt("seat_no");
-
+		
+		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 
 		return seats;
@@ -38,45 +40,55 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 	}
 
 	public Booking searchBySeatNo(LocalDate bookedDate, int BusNum, int seatNo) throws Exception {
-		Connection connection = DbConnection.getConnection();
-
+		
 		String sql = " select seat_no, user_gender,gender_preferences from booking where booked_date=? and bus_num= ? and seat_no =?";
-
-		Booking b = null;
-		PreparedStatement pst = connection.prepareStatement(sql);
+		 Booking b = null;
+	    try (Connection connection = DbConnection.getConnection();PreparedStatement pst = connection.prepareStatement(sql);ResultSet rs = pst.executeQuery();)
+	   
+	    		
+	    {
+		
 		pst.setDate(1, Date.valueOf(bookedDate));
 		pst.setInt(2, BusNum);
 		pst.setInt(3, seatNo);
-		ResultSet rs = pst.executeQuery();
-
+		
+		
 		if (rs.next()) {
 			b = new Booking();
 			b.seatNo = rs.getInt("seat_no");
 			b.userGender = rs.getString("user_gender");
 			b.genderPreference = rs.getString("gender_preferences");
+		
 			// b.genderPreference=rs.
 		}
-
+	}catch(Exception e)
+		{
+		e.printStackTrace();
+	}
 		return b;
 
 	}
 
 	public HashMap<Integer, String> getSeatNoAndUserGender(int busNum) throws Exception {
-		Connection connection = DbConnection.getConnection();
 		String userGender1 = "F";
 		String sql = "select seat_no,user_gender from booking where bus_num=busNum";
-		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery(sql);
 		HashMap<Integer, String> m = new HashMap<Integer, String>();
-		while (rs.next()) {
+	try(Connection connection = DbConnection.getConnection();
+			Statement stmt = connection.createStatement();ResultSet rs = stmt.executeQuery(sql);)
+			{
+		    while (rs.next()) {
 			int seatNo = rs.getInt("seat_no");
 			String gender = rs.getString("user_gender");
 			m.put(seatNo, gender);
-		}
+		}	
+	}catch(Exception e)
+	{
+	e.printStackTrace();
+}
 		return m;
 
 	}
-
+	
 	public void addUserBookingDetails(Booking booking) throws Exception {
 		SeatDAOImpl sd = new SeatDAOImpl();
 		SeatService ss = new SeatService();
@@ -89,12 +101,17 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 		
 		// String s= getgenderPreferences(booking.seatNo,booking.userGender);
 		// System.out.println(s);
-		Connection connection = DbConnection.getConnection();
-
 		String sql1 = "select no_of_seats from buslist where bus_num=?";
-		PreparedStatement pst1 = connection.prepareStatement(sql1);
+		String str = "insert into booking(user_id,travel_id,bus_num,user_gender,seat_no,booked_date,gender_preferences) values(?,?,?,?,?,?,?)";
+		System.out.println(str);
+
+		try(Connection connection = DbConnection.getConnection();
+           PreparedStatement pst1 = connection.prepareStatement(sql1);ResultSet rs = pst1.executeQuery();PreparedStatement pst = connection.prepareStatement(str);)
+		{
 		pst1.setInt(1, booking.busNum);
-		ResultSet rs = pst1.executeQuery();
+		
+		
+		
 		int totalSeats = 0;
 		if (rs.next()) {
 			totalSeats = rs.getInt("no_of_seats");
@@ -103,10 +120,8 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 		System.out.println("SeatsAvailable:" + isSeatsAvailable + ",totalSeats=" + totalSeats + ",booking Seat NO:" + booking.seatNo);
 		if (isSeatsAvailable) {
 
-			String str = "insert into booking(user_id,travel_id,bus_num,user_gender,seat_no,booked_date,gender_preferences) values(?,?,?,?,?,?,?)";
-			System.out.println(str);
-
-			PreparedStatement pst = connection.prepareStatement(str);
+			
+			
 			pst.setInt(1, booking.userId);
 			pst.setInt(2, booking.travelId);
 
@@ -122,14 +137,23 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
             }
             else
             	System.out.println("seats are not available");
+            
 		}
+	}catch(Exception e)
+		{
+		e.printStackTrace();
 	}
+		}
 
 	
    public void addAvaialbleSeats(Booking booking,int seatNo) throws Exception {
-	   Connection connection = DbConnection.getConnection();
-	   SeatDAOImpl si=new SeatDAOImpl();
-	   HashMap<String, String> hm=new HashMap<String, String>();
+	   String str = "insert into booking(user_id,travel_id,bus_num,user_gender,seat_no,booked_date,gender_preferences) values(?,?,?,?,?,?,?)";
+		System.out.println(str);
+		HashMap<String, String> hm=new HashMap<String, String>();
+		SeatDAOImpl si=new SeatDAOImpl();
+ try (Connection connection = DbConnection.getConnection();
+		 PreparedStatement pst = connection.prepareStatement(str);)
+ {
 	   hm=si.getInsertUnFiledSeats(booking.busNum, seatNo, booking.bookedDate);
 	   String gender=null;
 	   String gender_preference=null;
@@ -140,10 +164,9 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 	       
 	   }
 	   System.out.println(gender+"  "+gender_preference);
-	   String str = "insert into booking(user_id,travel_id,bus_num,user_gender,seat_no,booked_date,gender_preferences) values(?,?,?,?,?,?,?)";
-		System.out.println(str);
+	  
 
-		PreparedStatement pst = connection.prepareStatement(str);
+		
 		pst.setInt(1, booking.userId);
 		pst.setInt(2, booking.travelId);
 
@@ -173,7 +196,10 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 		   System.out.println("seats are not available");
 	
 	   
-
+ }catch(Exception e)
+	{
+	e.printStackTrace();
+}
    
    }
    

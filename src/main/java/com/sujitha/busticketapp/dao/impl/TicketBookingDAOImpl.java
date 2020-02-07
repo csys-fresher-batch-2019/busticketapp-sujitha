@@ -16,9 +16,11 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 
 	public void addBookingDetails(TicketBooking tic) throws Exception
 	{
-		Connection connection =DbConnection.getConnection() ;
 		String sql="insert into ticket_booking(travel_id,no_of_seats_booked,user_id,fair,j_date,booked_date,payment,status) values(?,?,?,?,?,?,?,?)";
-		PreparedStatement pst = connection.prepareStatement(sql);
+		
+		try(Connection connection =DbConnection.getConnection() ;
+		PreparedStatement pst = connection.prepareStatement(sql);)
+		{
 		pst.setInt(1,tic.travelId);
 		pst.setInt(2,tic.noOfSeatsBooked);
 		pst.setInt(3,tic.userId);
@@ -28,49 +30,65 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 		pst.setInt(7,tic.payment);
 		pst.setString(8,tic.status);
 		int row=pst.executeUpdate();
-		connection.close();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public int getNoOfSeatsBooked(int travelId) throws Exception
 	{
-		Connection connection =DbConnection.getConnection() ;
-	 String n =" select sum(no_of_seats_booked) no_of_seats_booked from ticket_booking where travel_id=? ";
-	  System.out.println(n);
-	  PreparedStatement pst = connection.prepareStatement(n);
+		String n =" select sum(no_of_seats_booked) no_of_seats_booked from ticket_booking where travel_id=? ";
+		  System.out.println(n);
+		  int s=0;
+		try(Connection connection =DbConnection.getConnection() ;
+	     PreparedStatement pst = connection.prepareStatement(n);
+	     ResultSet rows=pst.executeQuery();)
+		{
 		pst.setInt(1,travelId);
-		ResultSet rows=pst.executeQuery();
-		int s=0;
 		if(rows.next())
 		{
 			s= rows.getInt("no_of_seats_booked");
+		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 		return s;
 	}
 
 	public int totalPayment(String status) throws Exception {
-		Connection connection =DbConnection.getConnection() ;
 		String sql ="select sum(payment) as payment from ticket_booking where status=?";
-	 System.out.println(sql);
-	 PreparedStatement pst = connection.prepareStatement(sql);
+		 System.out.println(sql);
+		 int f=0;
+		try(Connection connection =DbConnection.getConnection() ;
+	    PreparedStatement pst = connection.prepareStatement(sql);
+	    ResultSet rows=pst.executeQuery();)
+		{
 		pst.setString(1,status);
-		ResultSet rows=pst.executeQuery();
-		int f=0;
+		
+		
 		if(rows.next())
 		{
 			f= rows.getInt("payment");
 			
 		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	return f;
 	}
 
 	public ArrayList<BusSeatsBooked> totalNoOfSeatsBooked(String status) throws Exception {
-		Connection connection =DbConnection.getConnection() ;
 		String sql ="select booked_date,count(no_of_seats_booked) as total_seats from ticket_booking where status= ? group by booked_date";
 		System.out.println(sql);
-		PreparedStatement pst = connection.prepareStatement(sql);
-		pst.setString(1,status);
-		ResultSet rows=pst.executeQuery();
 		ArrayList<BusSeatsBooked> list = new ArrayList<BusSeatsBooked>();
+		try(Connection connection =DbConnection.getConnection() ;
+		PreparedStatement pst = connection.prepareStatement(sql);
+		ResultSet rows=pst.executeQuery();)
+		{
+		pst.setString(1,status);
 		while(rows.next())
 		{
 	      int s= rows.getInt("total_seats");
@@ -81,27 +99,34 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 			bsd.bookedDate = ld;
 			list.add(bsd);
 		}
-	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	return list;
 	
 	}
 
 	public int getSeatNo(int travelId, int userId) throws Exception {
-		Connection connection =DbConnection.getConnection() ;
-		
-	String sql="select  count(b.seat_no) as ticket_count from booking b  where travel_id=?  and user_id=?"; 
-	System.out.println(sql);
-	PreparedStatement pst = connection.prepareStatement(sql);
-	pst.setInt(1,travelId);
-	pst.setInt(2,userId);
-	ResultSet rows=pst.executeQuery();
-	int f=0;
+		String sql="select  count(b.seat_no) as ticket_count from booking b  where travel_id=?  and user_id=?"; 
+		System.out.println(sql);
+		int f=0;
+		try(Connection connection =DbConnection.getConnection() ;
+		PreparedStatement pst = connection.prepareStatement(sql);
+	    ResultSet rows=pst.executeQuery();)
+		{
+        pst.setInt(1,travelId);
+	   pst.setInt(2,userId);
+	
 	if(rows.next())
 	{
 		f= rows.getInt("ticket_count");
 		
 	}
-
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		return f;
 	}
 

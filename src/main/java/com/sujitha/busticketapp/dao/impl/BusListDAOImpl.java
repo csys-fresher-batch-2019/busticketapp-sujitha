@@ -23,64 +23,97 @@ public class BusListDAOImpl implements BusListDAO  {
 		//System.out.println(sql);
 	//}
 	public void busList(int busNum, String busName, int noOfSeats, String seatType) throws Exception  {
-		Connection connection =DbConnection.getConnection() ;
-		
-		String sql="insert into buslist(bus_num,bus_name,no_of_seats,seat_type)values('"+busNum+"','"+busName+"','"+noOfSeats+"','"+seatType+"')";
+
+		String sql="insert into buslist(bus_num,bus_name,no_of_seats,seat_type)values(?,?,?,?)";
 		System.out.println(sql);
-		Statement stmt=connection.createStatement();
+		try(Connection connection =DbConnection.getConnection() ;
+		
+		PreparedStatement pst = connection.prepareStatement(sql);)
+		{
+		pst.setString(1,busName);
+		pst.setInt(2,busNum);
+		pst.setInt(3,noOfSeats);
+		pst.setString(4,seatType);
 		if(noOfSeats<=10)
 		{
-				int row=stmt.executeUpdate(sql);
+				int row=pst.executeUpdate(sql);
 				System.out.println(row);
+		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 		
 	}
 	public void busNameUpdate(String busName, int busNum) throws Exception  {
-		Connection connection =DbConnection.getConnection() ;
 		String s="update buslist set bus_name =? where bus_num=?";
-				System.out.println(s);
-				PreparedStatement pst = connection.prepareStatement(s);
+		System.out.println(s);
+		try(Connection connection =DbConnection.getConnection() ;
+		
+				PreparedStatement pst = connection.prepareStatement(s);)
+		{
 				pst.setString(1,busName);
 				pst.setInt(2,busNum);
 				int rows=pst.executeUpdate();
 				System.out.println(rows);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 }
 	public String busName(int busNum) throws Exception {
-		Connection connection = DbConnection.getConnection();
-		String name="select bus_name from buslist where bus_num='"+busNum+"'";
+		
+		String name="select bus_name from buslist where bus_num=?";
 		System.out.println(name);
-		Statement stmt=connection.createStatement();
-		ResultSet rs=stmt.executeQuery(name);
 		String s = null;
+	try(Connection connection = DbConnection.getConnection();
+		PreparedStatement pst = connection.prepareStatement(name);
+		ResultSet rs=pst.executeQuery();)
+	{
+
+		
+		pst.setInt(1,busNum);
 		while(rs.next())
 		{
 			 s= rs.getString("bus_name");
 			
 		}
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
 	return s;
 		
 	}
 	public int noOfSeats(int busNum) throws Exception {
-		Connection connection=DbConnection.getConnection();
-		String seats="select no_of_seats from buslist where bus_num="+busNum+"";
+		String seats="select no_of_seats from buslist where bus_num=?";
 		System.out.println(seats);
-		Statement st = connection.createStatement();
-		ResultSet rows=st.executeQuery(seats);
 		int s = 0;
+		try(Connection connection=DbConnection.getConnection();
+		
+		PreparedStatement pst = connection.prepareStatement(seats);
+		ResultSet rows=pst.executeQuery();)
+		{
+			pst.setInt(1,busNum);
 		while(rows.next())
 		{
 			 s= rows.getInt("no_of_seats");
 			
 		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		 return s;
 	}
 	public List<BusList> allBusListDetails() throws Exception {
 		List<BusList> list=new ArrayList<BusList>();
-		Connection connection=DbConnection.getConnection();
 		String sql = "select*from buslist";
 		System.out.println(sql);
-		Statement stmt=connection.createStatement();
-		ResultSet rs=stmt.executeQuery(sql);
+		try(Connection connection=DbConnection.getConnection();
+		PreparedStatement pst = connection.prepareStatement(sql);
+		ResultSet rs=pst.executeQuery();)
+		{
 		while(rs.next())
 		{
 			BusList bl=new BusList();
@@ -90,15 +123,22 @@ public class BusListDAOImpl implements BusListDAO  {
 			bl.seatType=rs.getString("seat_type");
 		list.add(bl);		
 		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		return list;
 	}
 	public void deleteBusName(String busName) throws Exception {
-		Connection connection=DbConnection.getConnection();
-		String sql ="delete from buslist where bus_name='" +busName+"'";
+		
+		String sql ="delete from buslist where bus_name=?";
 		System.out.println(sql);
-		Statement stmt=connection.createStatement();
+		try(Connection connection=DbConnection.getConnection();
+		PreparedStatement pst = connection.prepareStatement(sql);)
+		{
 		try{
-			int row=stmt.executeUpdate(sql);
+			pst.setString(1,busName);
+			int row=pst.executeUpdate(sql);
 		
 		System.out.println(row);
 		}catch(Exception e) {
@@ -108,7 +148,10 @@ public class BusListDAOImpl implements BusListDAO  {
 		System.out.println("There are child records found");
 		}
 		
-		
+		}	catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
    
    

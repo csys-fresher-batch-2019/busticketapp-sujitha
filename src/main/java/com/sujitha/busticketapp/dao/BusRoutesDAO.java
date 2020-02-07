@@ -14,7 +14,14 @@ public interface BusRoutesDAO{
 	public void busRouteAdd(int routeNo,String fromLocation,String toLocation) throws Exception;
 	// update busroutes set route_id=2 where to_location='Banglore';
 	public void routeNoUpdate(int routeId,String toLocation) throws Exception;
-	
-	
+	// select route_no from busroutes where from_location =? and to_location=?
+	public int getRouteNo(String fromLocation,String toLocation) throws Exception;
+	//select * from busroutes;
+	public List<BusRoutes> displayBusroutes() throws Exception;
+	//select from_location from busroutes;
+	public List<BusRoutes> fromLocations() throws Exception;
+	//select to_location from busroutes;
+	public List<BusRoutes> toLocations() throws Exception;
 	
 }
+
