@@ -2,6 +2,7 @@ package com.sujitha.busticketapp.busDetailsTest;
 
 import java.util.Scanner;
 
+import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.UserDetailsDAOImpl;
 
 public class TestUserDetails {

@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import com.sujitha.busticketapp.DbConnection;
+import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.BookingDeatilsDAO;
 import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.Booking;

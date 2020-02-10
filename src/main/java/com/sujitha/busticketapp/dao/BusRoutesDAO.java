@@ -3,6 +3,7 @@ package com.sujitha.busticketapp.dao;
 
 import java.util.List;
 
+import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.BusRoutesDAOImpl;
 import com.sujitha.busticketapp.model.BusRoutes;
 

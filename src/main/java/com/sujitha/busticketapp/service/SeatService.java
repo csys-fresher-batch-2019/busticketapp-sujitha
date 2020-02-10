@@ -3,6 +3,7 @@ package com.sujitha.busticketapp.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.BookingDetailDAOImpl;
 import com.sujitha.busticketapp.dao.impl.SeatDAOImpl;
 import com.sujitha.busticketapp.logger.Logger;

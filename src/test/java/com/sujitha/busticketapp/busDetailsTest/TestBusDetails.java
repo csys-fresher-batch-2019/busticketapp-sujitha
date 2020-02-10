@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.BusDetailsDAOImpl;
 import com.sujitha.busticketapp.dto.BusFare;
 import com.sujitha.busticketapp.logger.Logger;

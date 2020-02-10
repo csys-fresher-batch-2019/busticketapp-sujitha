@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.sujitha.busticketapp.DbConnection;
+import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.BusListDAO;
 import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.BusList;

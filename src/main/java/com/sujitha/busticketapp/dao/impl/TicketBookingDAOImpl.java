@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.sujitha.busticketapp.DbConnection;
+import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.TicketBookingDAO;
 import com.sujitha.busticketapp.dto.BusSeatsBooked;
 import com.sujitha.busticketapp.logger.Logger;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.BookingDetailDAOImpl;
 import com.sujitha.busticketapp.dao.impl.SeatDAOImpl;
 import com.sujitha.busticketapp.logger.Logger;

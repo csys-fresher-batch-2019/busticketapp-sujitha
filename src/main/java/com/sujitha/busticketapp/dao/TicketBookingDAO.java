@@ -3,6 +3,7 @@ package com.sujitha.busticketapp.dao;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dto.BusSeatsBooked;
 
 
