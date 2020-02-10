@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
 import com.sujitha.busticketapp.DbConnection;
+import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.Booking;
 import com.sujitha.busticketapp.service.SeatService;
@@ -18,7 +20,7 @@ public class SeatDAOImpl {
 	private static final Logger log=Logger.getInstance();
 
 	
-	public int getBookedNumberOfSeats(int BusNum) throws Exception {
+	public int getBookedNumberOfSeats(int BusNum) throws DbException {
 		String s="select seat_no from booking where bus_num=?";
 		System.out.println(s);
 		//Booking  b = new Booking();
@@ -42,15 +44,15 @@ public class SeatDAOImpl {
 			   
 			}
 		   System.out.println("Count : "+c);
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 		return c;
 		
 	}
 	
-	public int getTotalNumberofSeats(int BusNum) throws Exception {
+	public int getTotalNumberofSeats(int BusNum) throws DbException {
 		String s="select no_of_seats from buslist where bus_num=?";
 		System.out.println(s);
          int a= 0;
@@ -64,9 +66,9 @@ public class SeatDAOImpl {
 		   {
 			   a=rs.getInt("no_of_seats");
 		   }
-	}catch(Exception e)
+	}catch(SQLException e)
 	{
-		e.printStackTrace();
+		log.error(e);
 	}
 		return a;
 		
@@ -74,7 +76,7 @@ public class SeatDAOImpl {
 
 	
 
-public ArrayList<Integer> getUnFilledSeatNo(LocalDate bookedDate, int busNum) throws Exception {
+public ArrayList<Integer> getUnFilledSeatNo(LocalDate bookedDate, int busNum) throws DbException {
 	  String sql="select min_seat_no -1+level missing_number from (select min(1) min_seat_no,max(10) max_seat_no from booking)connect by  level <=max_seat_no-min_seat_no+1 minus select seat_no  as available_seats from booking where bus_num=? and booked_date=?";  
  		System.out.println(sql);
  		int a1=0;
@@ -88,14 +90,14 @@ public ArrayList<Integer> getUnFilledSeatNo(LocalDate bookedDate, int busNum) th
 		   while(rs.next()) {
 			    unSeats.add(rs.getInt(1));
 			   }
-	}catch(Exception e)
+	}catch(SQLException e)
 	{
-		e.printStackTrace();
+		log.error(e);
 	}
 	return unSeats;
 	}
 
-  public  HashMap<String,String> getInsertUnFiledSeats(int busNum,int seatNo,LocalDate bookedDate) throws Exception {
+  public  HashMap<String,String> getInsertUnFiledSeats(int busNum,int seatNo,LocalDate bookedDate) throws DbException {
 	  String sql="select user_gender,gender_preferences from booking where booked_date=? and bus_num=? and seat_no=? ";
 	  SeatService s=new SeatService();
 	  String s1=null;
@@ -113,9 +115,9 @@ public ArrayList<Integer> getUnFilledSeatNo(LocalDate bookedDate, int busNum) th
    			  hm.put(rs.getString("user_gender"),rs.getString("gender_preferences"));
    			  
    			}
-        	 }catch(Exception e)
+        	 }catch(SQLException e)
         		{
-        			e.printStackTrace();
+        			log.error(e);
         		}
 		return (hm) ;
    		  

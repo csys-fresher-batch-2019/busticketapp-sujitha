@@ -12,7 +12,7 @@ import com.sujitha.busticketapp.model.BusRoutes;
 public class TestBusRoutes {
 	private static final Logger log=Logger.getInstance();
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws DbException {
 		BusRoutesDAOImpl br= new BusRoutesDAOImpl();
 		// Insert the bus routes:
 		     // br.busRouteAdd(5,"Thirunelveli","Madurai");

@@ -6,7 +6,7 @@ import com.sujitha.busticketapp.model.Booking;
 
 public interface BookingDeatilsDAO {
  //insert values
-	public void addUserBookingDetails(Booking booking) throws Exception;
+	public void addUserBookingDetails(Booking booking) throws DbException;
 	
 
 	

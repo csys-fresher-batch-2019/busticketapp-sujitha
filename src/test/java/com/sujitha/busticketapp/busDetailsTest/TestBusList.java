@@ -15,7 +15,7 @@ public class TestBusList {
 	private static final Logger log=Logger.getInstance();
 	
 
-	public static void main(String[] args)throws Exception {
+	public static void main(String[] args)throws DbException {
 		
 		
 		BusListDAOImpl bli = new BusListDAOImpl();
@@ -44,7 +44,7 @@ public class TestBusList {
 	
 	
 	
-	 public static void DisplayBusDeatils() throws Exception {
+	 public static void DisplayBusDeatils() throws DbException {
 		 BusListDAOImpl bli = new BusListDAOImpl();
 		 List<BusList> list=new ArrayList<BusList>();
 			list=bli.allBusListDetails();

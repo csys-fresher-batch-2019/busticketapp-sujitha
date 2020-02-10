@@ -3,6 +3,7 @@ package com.sujitha.busticketapp.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 
 	
 
-	public String toLocation(int routeNo) throws Exception {
+	public String toLocation(int routeNo) throws DbException {
 		String s="select to_location from busroutes where route_no=?";
 		System.out.println(s);
 		String str= null;
@@ -33,14 +34,14 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 		{
 	     str= rows.getString("to_location");
 		}
-		}}catch(Exception e)
+		}}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 		return str;
 	}
 
-	public void busRouteAdd(int routeNo, String fromLocation, String toLocation) throws Exception {
+	public void busRouteAdd(int routeNo, String fromLocation, String toLocation) throws DbException {
 		String st="insert into busroutes(route_no,from_location,to_location)values(?,?,?)";
 		  System.out.println(st);
 		try(Connection connection =DbConnection.getConnection() ;
@@ -52,13 +53,13 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 		  pst.setString(3,toLocation);
 		  int row=pst.executeUpdate();
 		System.out.println(row);
-	}catch(Exception e)
+	}catch(SQLException e)
 		{
-		e.printStackTrace();
+		log.error(e);
 	}
 	}
 
-	public void routeNoUpdate(int routeNo, String toLocation) throws Exception {
+	public void routeNoUpdate(int routeNo, String toLocation) throws DbException {
 		String n = "update busroutes set to_location=? where route_no=?";
 	     System.out.println(n);
 		try(Connection connection =DbConnection.getConnection() ;
@@ -71,13 +72,13 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 	      
 			System.out.println(row);
 		
-	}catch(Exception e)
+	}catch(SQLException e)
 		{
-		e.printStackTrace();
+		log.error(e);
 	}
 	}
 
-	public int getRouteNo(String fromLocation, String toLocation) throws Exception {
+	public int getRouteNo(String fromLocation, String toLocation) throws DbException {
 		String sql="select route_no from busroutes where from_location =? and to_location=?";
 		System.out.println(sql);
 		int e1 = 0;
@@ -95,15 +96,15 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 			e1=rs.getInt("route_no");
 			
 		}
-			}}catch(Exception e)
+			}}catch(SQLException e)
 		{
-		e.printStackTrace();
+		log.error(e);
 	}
 	 return e1;
 		
 	}
 
-	public List<BusRoutes> displayBusroutes() throws Exception {
+	public List<BusRoutes> displayBusroutes() throws DbException {
 		String sql="select * from busroutes";
 		 System.out.println(sql);
 		 List<BusRoutes> busroutes = new ArrayList<BusRoutes>();
@@ -124,14 +125,14 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 				 br.setToLocation(toLocation1);
 				 busroutes.add(br);
 			}
-			}}catch(Exception e)
+			}}catch(SQLException e)
 		{
-		e.printStackTrace();
+		log.error(e);
 	}
 		return busroutes ;
 	}
 
-	public List<BusRoutes> fromLocations() throws Exception {
+	public List<BusRoutes> fromLocations() throws DbException {
 		String sql="select from_location from busroutes";
 		 System.out.println(sql);
 		 List<BusRoutes> busroutes = new ArrayList<BusRoutes>();
@@ -147,14 +148,14 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 				 br.setFromLocation(fromLocation1);
 				 busroutes.add(br);
 			}
-			}}	catch(Exception e)
+			}}	catch(SQLException e)
 		{
-		e.printStackTrace();
+		log.error(e);
 	}	
 		return busroutes ;
 	}
 
-	public List<BusRoutes> toLocations() throws Exception {
+	public List<BusRoutes> toLocations() throws DbException {
 		String sql="select to_location from busroutes ";
 		 System.out.println(sql);
 		 List<BusRoutes> busroutes = new ArrayList<BusRoutes>();
@@ -174,9 +175,9 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 				 br.setToLocation(toLocation1);
 				 busroutes.add(br);
 			}
-			}}	catch(Exception e)
+			}}	catch(SQLException e)
 		{
-		e.printStackTrace();
+		log.error(e);
 	}		
 		return busroutes ;
 	}

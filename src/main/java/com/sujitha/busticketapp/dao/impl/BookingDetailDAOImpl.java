@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import com.sujitha.busticketapp.service.SeatService;
 public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 	private static final Logger log=Logger.getInstance(); 
 
-	public int getLastSeatNo(LocalDate bookedDate, int BusNum) throws Exception {
+	public int getLastSeatNo(LocalDate bookedDate, int BusNum) throws DbException {
 		int seats = 0;
 		String sql = " select max(seat_no) as seat_no from booking where booked_date=? and bus_num= ?";
 
@@ -32,16 +33,16 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 
 		
 		}
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 
 		return seats;
 
 	}
 
-	public Booking searchBySeatNo(LocalDate bookedDate, int BusNum, int seatNo) throws Exception {
+	public Booking searchBySeatNo(LocalDate bookedDate, int BusNum, int seatNo) throws DbException {
 		
 		String sql = " select seat_no, user_gender,gender_preferences from booking where booked_date=? and bus_num= ? and seat_no =?";
 		 Booking b = null;
@@ -63,15 +64,15 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 		
 			// b.genderPreference=rs.
 		}
-	}catch(Exception e)
+	}catch(SQLException e)
 		{
-		e.printStackTrace();
+		log.error(e);
 	}
 		return b;
 
 	}
 
-	public HashMap<Integer, String> getSeatNoAndUserGender(int busNum) throws Exception {
+	public HashMap<Integer, String> getSeatNoAndUserGender(int busNum) throws DbException {
 		String userGender1 = "F";
 		String sql = "select seat_no,user_gender from booking where bus_num=busNum";
 		HashMap<Integer, String> m = new HashMap<Integer, String>();
@@ -83,15 +84,15 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 			String gender = rs.getString("user_gender");
 			m.put(seatNo, gender);
 		}	
-	}catch(Exception e)
+	}catch(SQLException e)
 	{
-	e.printStackTrace();
+	log.error(e);
 }
 		return m;
 
 	}
 	
-	public void addUserBookingDetails(Booking booking) throws Exception {
+	public void addUserBookingDetails(Booking booking) throws DbException {
 		SeatDAOImpl sd = new SeatDAOImpl();
 		SeatService ss = new SeatService();
 		int nextSeatNo = ss.getNextSeatNo(booking.getBookedDate(), booking.getBusNum());
@@ -141,14 +142,14 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
             	System.out.println("seats are not available");
             
 		}
-	}catch(Exception e)
+	}catch(SQLException e)
 		{
-		e.printStackTrace();
+		log.error(e);
 	}
 		}
 
 	
-   public void addAvaialbleSeats(Booking booking,int seatNo) throws Exception {
+   public void addAvaialbleSeats(Booking booking,int seatNo) throws DbException {
 	   String str = "insert into booking(user_id,travel_id,bus_num,user_gender,seat_no,booked_date,gender_preferences) values(?,?,?,?,?,?,?)";
 		System.out.println(str);
 		HashMap<String, String> hm=new HashMap<String, String>();
@@ -198,14 +199,14 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 		   System.out.println("seats are not available");
 	
 	   
- }catch(Exception e)
+ }catch(SQLException e)
 	{
-	e.printStackTrace();
+	log.error(e);
 }
    
    }
    
-	public void bookUnfilledSeats(Booking booking) throws Exception {
+	public void bookUnfilledSeats(Booking booking) throws DbException {
 		 SeatDAOImpl sdi = new SeatDAOImpl();
 		  ArrayList<Integer> ai = new  ArrayList<Integer> ();
 		 ai= sdi. getUnFilledSeatNo(booking.getBookedDate(), booking.getBusNum());

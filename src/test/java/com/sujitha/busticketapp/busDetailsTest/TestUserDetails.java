@@ -6,7 +6,7 @@ import com.sujitha.busticketapp.dao.impl.UserDetailsDAOImpl;
 
 public class TestUserDetails {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws DbException {
 		
 		UserDetailsDAOImpl ud = new UserDetailsDAOImpl();
 		
@@ -34,7 +34,7 @@ public class TestUserDetails {
 	
 	
 	
-	public static void testInsert() throws Exception {
+	public static void testInsert() throws DbException {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Enter the UserName");
@@ -52,7 +52,7 @@ public class TestUserDetails {
        sc.close();
        
 	}
-	/*public static void userdetails() throws Exception {
+	/*public static void userdetails() throws DbException {
 		 ArrayList<UserDetails> list=new ArrayList<UserDetails>();
 		 UserDetailsDAOImpl ud = new UserDetailsDAOImpl();
 		  list=ud.getUserDetails();

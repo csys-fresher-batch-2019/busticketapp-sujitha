@@ -3,10 +3,12 @@ package com.sujitha.busticketapp.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.sujitha.busticketapp.DbConnection;
+import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.UserDetailsDAO;
 import com.sujitha.busticketapp.dto.UserGenderEnum;
 import com.sujitha.busticketapp.logger.Logger;
@@ -15,7 +17,7 @@ import com.sujitha.busticketapp.model.UserDetails;
 public class UserDetailsDAOImpl implements UserDetailsDAO {
 	private static final Logger log=Logger.getInstance();
 
-	public void getUserDetails(String userName, long userPhnNum, String userGender,String password) throws Exception {
+	public void getUserDetails(String userName, long userPhnNum,String userGender,String password) throws DbException {
 		String str="insert into user_details(user_id ,user_name,user_phn_num,user_gender,password)values(user_id_seq.nextval,?,?,?,?)";
 		System.out.println(str);
 		try(Connection connection =DbConnection.getConnection() ;
@@ -27,13 +29,13 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		pst.setString(4,password);
 		int rows=pst.executeUpdate();
 		System.out.println(rows);
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 	}
 
-	public void updateUserPhnNum(int userId,long userPhnNum) throws Exception {
+	public void updateUserPhnNum(int userId,long userPhnNum) throws DbException {
 		try(Connection connection =DbConnection.getConnection() ;)
 		{
 		String sql="update user_details set user_phn_num=? where user_id=?";
@@ -61,13 +63,13 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		System.out.println(id + "-" + username);
 		}
 		}
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 	}
 
-	public String getUserGender(int userId) throws Exception {
+	public String getUserGender(int userId) throws DbException {
 		
 		String strn="select user_gender from user_details where user_id=?";
 		System.out.println(strn);
@@ -86,14 +88,14 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 			a= rs.getString("user_gender");
 			
 		}
-			}}catch(Exception e)
+			}}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 		return a;
 	}
 
-	  public int getGenderCount(String  userGender) throws Exception {
+	  public int getGenderCount(String  userGender) throws DbException {
 		  String sql ="select count (*)user_gender from user_details where user_gender=?";
 			System.out.println(sql);
 			int v=0;
@@ -110,14 +112,14 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 			 v= rs.getInt("user_gender");
 			
 		}
-			}}catch(Exception e)
+			}}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 		return v;
 	  }
 
-	/*public ArrayList<UserDetails> getUserDetails() throws Exception {
+	/*public ArrayList<UserDetails> getUserDetails() throws DbException {
 		ArrayList<UserDetails> list=new ArrayList<UserDetails>();
 		Connection connection =DbConnection.getConnection();
 		String sql="select * from user_details";
@@ -136,7 +138,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		return list;
 	}*/
 
-	public void addUserDetails(UserDetails userdetails) throws Exception {
+	public void addUserDetails(UserDetails userdetails) throws DbException {
 		String sql="insert into user_details(user_id ,user_name,user_phn_num,user_gender)values(?,?,?,?)";
 		System.out.println(sql);
 		try(Connection connection =DbConnection.getConnection();
@@ -149,14 +151,14 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		pst.setString(4,userdetails.getUserGender().toString());
 		int rows=pst.executeUpdate();
 		System.out.println(rows);
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 		
 	}
 
-	public void updateUG(int userID,UserGenderEnum userGender) throws Exception {
+	public void updateUG(int userID,UserGenderEnum userGender) throws DbException {
 		String sql="UPDATE USER_DETAILS SET USER_GENDER=? WHERE USER_ID=?";
 		System.out.println(sql);
 		try(Connection connection =DbConnection.getConnection();
@@ -169,12 +171,12 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		
 		int rows=pst.executeUpdate();
 		System.out.println(rows);
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 	}
-	public void login(long userPhnNum, String password) throws Exception {
+	public void login(long userPhnNum, String password) throws DbException {
 		String sql = "select user_phn_num,password from user_details where user_phn_num=? and password = ?";
 		System.out.println(sql);
         try(Connection connection=DbConnection.getConnection();
@@ -193,9 +195,9 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		}
 		
 		
-		}}catch(Exception e)
+		}}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 
 	}

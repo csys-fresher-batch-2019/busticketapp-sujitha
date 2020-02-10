@@ -3,6 +3,7 @@ package com.sujitha.busticketapp.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.sujitha.busticketapp.DbConnection;
@@ -21,7 +22,7 @@ public class BusListDAOImpl implements BusListDAO  {
 		//String sql="insert into buslist(busNum,busName,noOfSeats,seatType)values('"+buslist.busNum +"','"+buslist.busName+"','"+buslist.noOfSeats+"','"+buslist.seatType+"')";
 		//System.out.println(sql);
 	//}
-	public void busList(int busNum, String busName, int noOfSeats, String seatType) throws Exception  {
+	public void busList(int busNum, String busName, int noOfSeats, String seatType) throws DbException  {
 
 		String sql="insert into buslist(bus_num,bus_name,no_of_seats,seat_type)values(?,?,?,?)";
 		System.out.println(sql);
@@ -38,13 +39,13 @@ public class BusListDAOImpl implements BusListDAO  {
 				int row=pst.executeUpdate();
 				System.out.println(row);
 		}
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 		
 	}
-	public void busNameUpdate(String busName, int busNum) throws Exception  {
+	public void busNameUpdate(String busName, int busNum) throws DbException  {
 		String s="update buslist set bus_name =? where bus_num=?";
 		System.out.println(s);
 		try(Connection connection =DbConnection.getConnection() ;
@@ -55,12 +56,12 @@ public class BusListDAOImpl implements BusListDAO  {
 				pst.setInt(2,busNum);
 				int rows=pst.executeUpdate();
 				System.out.println(rows);
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 }
-	public String busName(int busNum) throws Exception {
+	public String busName(int busNum) throws DbException {
 		
 		String name="select bus_name from buslist where bus_num=?";
 		System.out.println(name);
@@ -80,14 +81,14 @@ public class BusListDAOImpl implements BusListDAO  {
 			 s= rs.getString("bus_name");
 			
 		}
-		}}catch(Exception e)
+		}}catch(SQLException e)
 	{
-		e.printStackTrace();
+		log.error(e);
 	}
 	return s;
 		
 	}
-	public int noOfSeats(int busNum) throws Exception {
+	public int noOfSeats(int busNum) throws DbException {
 		String seats="select no_of_seats from buslist where bus_num=?";
 		System.out.println(seats);
 		int s = 0;
@@ -105,13 +106,13 @@ public class BusListDAOImpl implements BusListDAO  {
 		//System.out.println(s);
 		
 		}
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 		 return s;
 	}
-	public List<BusList> allBusListDetails() throws Exception {
+	public List<BusList> allBusListDetails() throws DbException {
 		List<BusList> list=new ArrayList<BusList>();
 		String sql = "select*from buslist";
 		System.out.println(sql);
@@ -129,13 +130,13 @@ public class BusListDAOImpl implements BusListDAO  {
 			bl.setSeatType(rs.getString("seat_type"));
 		list.add(bl);		
 		}
-			}}catch(Exception e)
+			}}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 		return list;
 	}
-	public void deleteBusName(String busName) throws Exception {
+	public void deleteBusName(String busName) throws DbException {
 		
 		String sql ="delete from buslist where bus_name=?";
 		System.out.println(sql);
@@ -154,9 +155,9 @@ public class BusListDAOImpl implements BusListDAO  {
 		System.out.println("There are child records found");
 		}
 		
-		}	catch(Exception e)
+		}	catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 	}
    

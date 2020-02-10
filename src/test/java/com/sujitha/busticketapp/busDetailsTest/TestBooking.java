@@ -14,7 +14,7 @@ import com.sujitha.busticketapp.service.SeatService;
 public class TestBooking {
 	private static final Logger log=Logger.getInstance();
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws DbException {
 		
 		//testTicketBooking();
 		

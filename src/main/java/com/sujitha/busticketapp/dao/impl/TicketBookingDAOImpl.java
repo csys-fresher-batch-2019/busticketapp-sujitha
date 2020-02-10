@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 	
 	private static final Logger log=Logger.getInstance();
 
-	public void addBookingDetails(TicketBooking tic) throws Exception
+	public void addBookingDetails(TicketBooking tic) throws DbException
 	{
 		String sql="insert into ticket_booking(travel_id,no_of_seats_booked,user_id,fair,j_date,booked_date,payment,status) values(?,?,?,?,?,?,?,?)";
 		
@@ -33,13 +34,13 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 		pst.setInt(7,tic.getPayment());
 		pst.setString(8,tic.getStatus());
 		int row=pst.executeUpdate();
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 	}
 
-	public int getNoOfSeatsBooked(int travelId) throws Exception
+	public int getNoOfSeatsBooked(int travelId) throws DbException
 	{
 		String n =" select sum(no_of_seats_booked) no_of_seats_booked from ticket_booking where travel_id=? ";
 		  System.out.println(n);
@@ -53,14 +54,14 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 		{
 			s= rows.getInt("no_of_seats_booked");
 		}
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 		return s;
 	}
 
-	public int totalPayment(String status) throws Exception {
+	public int totalPayment(String status) throws DbException {
 		String sql ="select sum(payment) as payment from ticket_booking where status=?";
 		 System.out.println(sql);
 		 int f=0;
@@ -76,14 +77,14 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 			f= rows.getInt("payment");
 			
 		}
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 	return f;
 	}
 
-	public ArrayList<BusSeatsBooked> totalNoOfSeatsBooked(String status) throws Exception {
+	public ArrayList<BusSeatsBooked> totalNoOfSeatsBooked(String status) throws DbException {
 		String sql ="select booked_date,count(no_of_seats_booked) as total_seats from ticket_booking where status= ? group by booked_date";
 		System.out.println(sql);
 		ArrayList<BusSeatsBooked> list = new ArrayList<BusSeatsBooked>();
@@ -102,15 +103,15 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 			bsd.setBookedDate(ld);
 			list.add(bsd);
 		}
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 	return list;
 	
 	}
 
-	public int getSeatNo(int travelId, int userId) throws Exception {
+	public int getSeatNo(int travelId, int userId) throws DbException {
 		String sql="select  count(b.seat_no) as ticket_count from booking b  where travel_id=?  and user_id=?"; 
 		System.out.println(sql);
 		int f=0;
@@ -126,9 +127,9 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 		f= rows.getInt("ticket_count");
 		
 	}
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			log.error(e);
 		}
 		return f;
 	}

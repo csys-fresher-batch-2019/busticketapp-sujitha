@@ -12,7 +12,7 @@ public class SeatService {
 	private static final Logger log=Logger.getInstance();
 
 	
-	public static int getNextSeatNo(LocalDate bookedDate, int BusNum) throws Exception {
+	public static int getNextSeatNo(LocalDate bookedDate, int BusNum) throws DbException {
 
 		BookingDetailDAOImpl obj = new BookingDetailDAOImpl();
 		int lastSeatNo = obj.getLastSeatNo(bookedDate, BusNum);
@@ -21,7 +21,7 @@ public class SeatService {
 
 	}
 	
-	public static int getNextSeatNo(LocalDate bookedDate, int BusNum, String userGender,String genderPreference) throws Exception {
+	public static int getNextSeatNo(LocalDate bookedDate, int BusNum, String userGender,String genderPreference) throws DbException {
 
 		BookingDetailDAOImpl obj = new BookingDetailDAOImpl();
 		 SeatDAOImpl sdi=new SeatDAOImpl();

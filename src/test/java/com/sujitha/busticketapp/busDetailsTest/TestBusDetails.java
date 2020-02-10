@@ -11,7 +11,7 @@ import com.sujitha.busticketapp.model.BusDetails;
 
 public class TestBusDetails {
 	private static final Logger log=Logger.getInstance();
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws DbException {
 		
 		
       
@@ -47,7 +47,7 @@ public class TestBusDetails {
       
 	
 	
-	public static void testInsert() throws Exception {
+	public static void testInsert() throws DbException {
     	ArrayList<BusDetails> busdetail= new ArrayList<BusDetails>();
  	      BusDetails	bd = new BusDetails();
  	     BusDetailsDAOImpl bdl = new BusDetailsDAOImpl();
@@ -65,7 +65,7 @@ public class TestBusDetails {
        }
 	
       }
-	private static void displayFair() throws Exception {
+	private static void displayFair() throws DbException {
 		BusDetailsDAOImpl bdl = new BusDetailsDAOImpl();
 		ArrayList<BusFare> fairdetails= bdl.getFairDetails("TAT");
 	 for (BusFare busFare : fairdetails) {

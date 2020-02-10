@@ -12,7 +12,7 @@ import com.sujitha.busticketapp.model.TicketBooking;
 public class TestTicektBooking {
 	private static final Logger log=Logger.getInstance();
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws DbException {
 		TicketBookingDAOImpl tbl = new TicketBookingDAOImpl();
 		
 		//Display no of seats booked by using travelid: 
@@ -38,7 +38,7 @@ public class TestTicektBooking {
 	
 	
 	
-	public static void testInsert() throws Exception {
+	public static void testInsert() throws DbException {
 	TicketBookingDAOImpl tbl = new TicketBookingDAOImpl();
 	List<TicketBooking> List=new ArrayList<TicketBooking>();
 	TicketBooking tb=new TicketBooking();
@@ -69,7 +69,7 @@ public class TestTicektBooking {
 	
 	
 	}
-	public static void totalSeats() throws Exception {
+	public static void totalSeats() throws DbException {
 		TicketBookingDAOImpl tbl = new TicketBookingDAOImpl();
         ArrayList<BusSeatsBooked> seatsdetails= tbl.totalNoOfSeatsBooked("booked");
 		for(BusSeatsBooked seats: seatsdetails) {
