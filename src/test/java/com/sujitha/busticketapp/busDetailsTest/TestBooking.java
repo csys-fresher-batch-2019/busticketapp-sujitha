@@ -21,10 +21,10 @@ public class TestBooking {
 		
 		ArrayList<Booking> booking = new ArrayList<Booking>();
 		Booking b = new Booking();
-		b.setUserId(13);
-		b.setTravelId(10);
+		b.setUserId(11);
 		
-		b.setBusNum(101);
+		
+		b.setBusNum(102);
 		b.setUserGender("F");
 		b.setBookedDate(LocalDate.parse("2019-12-10"));
 		b.setGenderPreference("yes");
@@ -35,10 +35,10 @@ public class TestBooking {
 		
 		for (Booking bookings : booking) {
 			System.out.println(bookings);
-			//bg.addUserBookingDetails(bookings);
+			bg.addUserBookingDetails(bookings);
 		}
 		//bg.addAvaialbleSeats(b,8);
-		bg.bookUnfilledSeats(b);
+		//bg.bookUnfilledSeats(b);
 		
 		
 		

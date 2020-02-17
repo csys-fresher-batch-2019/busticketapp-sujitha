@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.sujitha.busticketapp.DbConnection;
 import com.sujitha.busticketapp.DbException;
@@ -14,6 +16,7 @@ import com.sujitha.busticketapp.dao.BusDetailsDAO;
 import com.sujitha.busticketapp.dto.BusFare;
 import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.BusDetails;
+import com.sujitha.busticketapp.model.BusList;
 
 public class BusDetailsDAOImpl implements BusDetailsDAO{
 	private static final Logger log=Logger.getInstance();
@@ -187,11 +190,43 @@ public class BusDetailsDAOImpl implements BusDetailsDAO{
 		}
  return e1;
 	}
-}
+
 		
-
+   public List<BusDetails> busdetails(BusDetails bus)throws DbException {
+	   ArrayList<BusDetails> busdetails = new ArrayList<BusDetails>();
+       String sql="select start_time,end_time,fair from busdetails where bus_num=?";
+       System.out.println(sql);
+     
+		try(Connection connection =DbConnection.getConnection() ;
+		
+	 PreparedStatement pst = connection.prepareStatement(sql);)
+	{
+			
+				pst.setInt(1,bus.getBusNum());
+				try(ResultSet rs=pst.executeQuery();)
+				{
+					while(rs.next()) {
+						BusDetails bl=new BusDetails();
+						bl.setStartTime(rs.getString("start_time"));
+						bl.setEndTime(rs.getString("end_time"));
+						bl.setFair(rs.getInt("fair"));
+						
+					busdetails.add(bl);		
+					}
+					
+				}	} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	
+	
+	
+	
+			return	busdetails;	
 
+
+   }
+}
 	
 
 	

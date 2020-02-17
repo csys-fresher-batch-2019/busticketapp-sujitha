@@ -9,8 +9,8 @@ public class BusDetails {
 	private  int routeNo;
 	private  int busNum;
 	private  LocalDate travelDate;
-	private  LocalTime startTime;
-	private  LocalTime endTime;
+	private  String startTime;
+	private  String endTime;
 	private  int fair ;
 	private  int availableSeats;
 	public int getTravelId() {
@@ -37,16 +37,16 @@ public class BusDetails {
 	public void setTravelDate(LocalDate travelDate) {
 		this.travelDate = travelDate;
 	}
-	public LocalTime getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(LocalTime startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-	public LocalTime getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(LocalTime endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	public int getFair() {
@@ -61,5 +61,6 @@ public class BusDetails {
 	public void setAvailableSeats(int availableSeats) {
 		this.availableSeats = availableSeats;
 	}
-
-}
+	
+	}
+	

@@ -19,14 +19,14 @@ public class TestBusRoutes {
 		     // br.busRouteAdd(5,"Thirunelveli","Madurai");
 		// Update the details:
 		   //   br.routeNoUpdate(4,"Virudhunagar");
-   //int a=  br.getRouteNo("chennai", "Kovilpatti");
-  //  System.out.println(a);
+   int a=  br.getRouteNo("chennai", "Kovilpatti");
+   System.out.println(a);
        
 	  
-	 /* List<BusRoutes> routes=br.displayBusroutes();
+	  List<BusRoutes> routes=br.displayBusroutes();
 	   for(BusRoutes route:routes) {
 		   System.out.println(route);
-	   }  */ 
+	   }  
 		   List<BusRoutes> bus=br.fromLocations();
 		   for(BusRoutes r:bus) {
 			   System.out.println(r.getFromLocation());

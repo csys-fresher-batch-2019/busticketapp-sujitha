@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.sujitha.busticketapp.DbConnection;
 import com.sujitha.busticketapp.DbException;
@@ -176,22 +177,28 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 			log.error(e);
 		}
 	}
-	public void login(long userPhnNum, String password) throws DbException {
+	public boolean login(long userPhnNum, String password) throws DbException {
+		
 		String sql = "select user_phn_num,password from user_details where user_phn_num=? and password = ?";
 		System.out.println(sql);
+		boolean msg=true;
         try(Connection connection=DbConnection.getConnection();
-        		PreparedStatement pst = connection.prepareStatement(sql);
-        		)
-       {
-		try(ResultSet row =pst. executeQuery();)
+      PreparedStatement pst = connection.prepareStatement(sql))
+        {
+        pst.setLong(1,userPhnNum);
+        pst.setString(2,password);
+        
+       
+		try(ResultSet row =pst. executeQuery())
 		{
 		if (row.next())
 		{
-		 
-			System.out.println("Successfully Login");
+		    msg=true;
+			log.getInput("Successfully Login");
 		}
 		else {
-			System.out.println("Login Details are invalid");
+			msg=false;
+			log.getInput("Login Details are invalid");
 		}
 		
 		
@@ -199,9 +206,36 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 		{
 			log.error(e);
 		}
+		return msg;
+	
 
 	}
+	public int getUserId(long userPhnNum, String password) throws DbException {
+		String sql="select user_id from user_details where user_phn_num=?and password=?";
+		System.out.println(sql);
+		 int v= 0;
+		 try(Connection connection=DbConnection.getConnection();
+			      PreparedStatement pst = connection.prepareStatement(sql);){
+			        pst.setLong(1,userPhnNum);
+			        pst.setString(2,password);
+			        
+			        try(ResultSet row =pst. executeQuery())
+					{
+		                 if(row.next()) {
+		                	 v= row.getInt("user_Id");
+		                	
+		                 }
+					}  }catch(SQLException e)
+					{
+						 
+		         			log.error(e);
+		         		}
+		                 return v;
 		
+		
+		
+	}
+	
 	}
 	
 	

@@ -29,11 +29,12 @@ public class SeatDAOImpl {
 		   int c=0;
 		try(Connection connection=DbConnection.getConnection();
 	    PreparedStatement pst = connection.prepareStatement(s);
-		 ResultSet rs=pst.executeQuery();)
+		 )
 		{
 		   pst.setInt(1,BusNum);
 		   
-		   
+		 try(  ResultSet rs=pst.executeQuery();)
+		 {
 		   while(rs.next())
 			{
 		
@@ -44,7 +45,7 @@ public class SeatDAOImpl {
 			   
 			}
 		   System.out.println("Count : "+c);
-		}catch(SQLException e)
+		 }}catch(SQLException e)
 		{
 			log.error(e);
 		}
@@ -58,15 +59,16 @@ public class SeatDAOImpl {
          int a= 0;
 	try(	Connection connection=DbConnection.getConnection();
 	    PreparedStatement pst = connection.prepareStatement(s);
-			ResultSet rs=pst.executeQuery();)
+			)
 	{
 		   pst.setInt(1,BusNum);
-		   
+		   try(ResultSet rs=pst.executeQuery();)
+		   {
 		   if(rs.next())
 		   {
 			   a=rs.getInt("no_of_seats");
 		   }
-	}catch(SQLException e)
+		   }}catch(SQLException e)
 	{
 		log.error(e);
 	}
@@ -82,15 +84,17 @@ public ArrayList<Integer> getUnFilledSeatNo(LocalDate bookedDate, int busNum) th
  		int a1=0;
 		   ArrayList<Integer> unSeats=new ArrayList<Integer>();
 	try(Connection connection=DbConnection.getConnection();
-    PreparedStatement pst = connection.prepareStatement(sql);
-    ResultSet rs=pst.executeQuery();)
+    PreparedStatement pst = connection.prepareStatement(sql);)
+    
 	{
 		   pst.setInt(1,busNum);
 		   pst.setDate(2,Date.valueOf(bookedDate));
+		   try(ResultSet rs=pst.executeQuery();)
+		   {
 		   while(rs.next()) {
 			    unSeats.add(rs.getInt(1));
 			   }
-	}catch(SQLException e)
+		   }}catch(SQLException e)
 	{
 		log.error(e);
 	}
@@ -104,18 +108,20 @@ public ArrayList<Integer> getUnFilledSeatNo(LocalDate bookedDate, int busNum) th
 		   HashMap<String, String> hm=new HashMap<String, String>();
         	 try( Connection connection=DbConnection.getConnection();
         			 PreparedStatement pst = connection.prepareStatement(sql);
-        			 ResultSet rs=pst.executeQuery();)
+        			)
         	 {
         	  int previousSeatNo=s.getUnFiledSeats(busNum, seatNo, bookedDate);
               pst.setDate(1,Date.valueOf(bookedDate));
    		      pst.setInt(2,busNum);
    		      pst.setInt(3,previousSeatNo);
+   		   try(ResultSet rs=pst.executeQuery();)
+{
    		  while(rs.next())
    		   {
    			  hm.put(rs.getString("user_gender"),rs.getString("gender_preferences"));
    			  
    			}
-        	 }catch(SQLException e)
+} }catch(SQLException e)
         		{
         			log.error(e);
         		}

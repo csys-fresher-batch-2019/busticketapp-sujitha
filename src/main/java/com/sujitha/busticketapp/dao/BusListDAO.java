@@ -23,7 +23,7 @@ public interface BusListDAO {
   // select no_of_seats from buslist where bus_num=102;
    public int noOfSeats(int busNum) throws DbException;
    // select*from buslist;
-    public List<BusList> allBusListDetails() throws DbException;
+    public List<BusList> allBusListDetailss() throws DbException;
     //delete from buslist where busname= ?
     public void deleteBusName(String busName ) throws DbException;
     

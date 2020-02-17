@@ -4,23 +4,22 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class Booking {
-	 private int userId;
-	 private int travelId;
-	 
+	 @Override
+	public String toString() {
+		return "Booking [userId=" + userId + ", busNum=" + busNum + ", userGender=" + userGender + ", seatNo=" + seatNo
+				+ ", bookedDate=" + bookedDate + ", genderPreference=" + genderPreference + "]";
+	}
+	private int userId;
 	 private int busNum ;
 	 private	String userGender ;
 	 private int seatNo ;
-	 public int getUserId() {
+	 private LocalDate bookedDate;
+	 private String genderPreference;
+	public int getUserId() {
 		return userId;
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
-	public int getTravelId() {
-		return travelId;
-	}
-	public void setTravelId(int travelId) {
-		this.travelId = travelId;
 	}
 	public int getBusNum() {
 		return busNum;
@@ -52,15 +51,10 @@ public class Booking {
 	public void setGenderPreference(String genderPreference) {
 		this.genderPreference = genderPreference;
 	}
-	private LocalDate bookedDate ;
-	 private  String genderPreference;
-@Override
-public String toString() {
-	return "Booking [userId=" + userId + ", travelId=" + travelId + ", busNum=" + busNum + ", userGender=" + userGender
-			+ ", seatNo=" + seatNo + ", bookedDate=" + bookedDate + ", genderPreference=" + genderPreference + "]";
-}
+	
+	 
+}	
 
-}
-  
+
 
 

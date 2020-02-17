@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.sujitha.busticketapp.DbConnection;
 import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.BusListDAO;
+import com.sujitha.busticketapp.dto.BusesDetails;
 import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.BusList;
 
@@ -113,7 +115,7 @@ public class BusListDAOImpl implements BusListDAO  {
 		}
 		 return s;
 	}
-	public List<BusList> allBusListDetails() throws DbException {
+	public List<BusList> allBusListDetailss() throws DbException {
 		List<BusList> list=new ArrayList<BusList>();
 		String sql = "select*from buslist";
 		System.out.println(sql);
@@ -136,6 +138,36 @@ public class BusListDAOImpl implements BusListDAO  {
 			log.error(e);
 		}
 		return list;
+	}
+	
+	public List<BusesDetails> allBusListDetails(int routeNo) throws DbException {
+		List<BusesDetails> list1=new ArrayList<BusesDetails>();
+		String sql = "select b.bus_num,bl.bus_name,bl.no_of_seats,bl.seat_type,b.start_time,b.end_time,b.fair from buslist bl,busdetails b where bl.bus_num=b.bus_num and b.route_no=?";
+		System.out.println(sql);
+		try(Connection connection=DbConnection.getConnection();
+		PreparedStatement pst = connection.prepareStatement(sql);
+		){
+		pst.setInt(1,routeNo);
+		
+			try(ResultSet rs=pst.executeQuery();){
+		while(rs.next())
+		{
+			BusesDetails b=new BusesDetails();
+			
+			b.setBusNum(rs.getInt("bus_num"));
+			b.setBusName(rs.getString("bus_name"));
+			b.setNoOfSeats(rs.getInt("no_of_seats"));
+			b.setSeatType(rs.getString("seat_type"));
+			b.setStartTime(rs.getString("start_time"));
+			b.setEndTime(rs.getString("end_time"));
+			b.setFair(rs.getInt("fair"));
+		list1.add(b);		
+		}
+			}}catch(SQLException e)
+		{
+			log.error(e);
+		}
+		return list1;
 	}
 	public void deleteBusName(String busName) throws DbException {
 		

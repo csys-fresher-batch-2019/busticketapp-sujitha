@@ -25,16 +25,18 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 		int seats = 0;
 		String sql = " select max(seat_no) as seat_no from booking where booked_date=? and bus_num= ?";
 
-		try(Connection connection = DbConnection.getConnection();PreparedStatement pst = connection.prepareStatement(sql);ResultSet rs = pst.executeQuery();)
+		try(Connection connection = DbConnection.getConnection();PreparedStatement pst = connection.prepareStatement(sql);)
 		{
 		   pst.setDate(1, Date.valueOf(bookedDate));
 		  pst.setInt(2, BusNum);
+		 try( ResultSet rs = pst.executeQuery();)
+		 {
 		  if (rs.next()) {
 			  seats = rs.getInt("seat_no");
 
 		
 		}
-		}catch(SQLException e)
+		 }}catch(SQLException e)
 		{
 			log.error(e);
 		}
@@ -47,15 +49,12 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 		
 		String sql = " select seat_no, user_gender,gender_preferences from booking where booked_date=? and bus_num= ? and seat_no =?";
 		 Booking b = null;
-	    try (Connection connection = DbConnection.getConnection();PreparedStatement pst = connection.prepareStatement(sql);ResultSet rs = pst.executeQuery();)
-	   
-	    		
-	    {
-		
-		pst.setDate(1, Date.valueOf(bookedDate));
+	    try (Connection connection = DbConnection.getConnection();PreparedStatement pst = connection.prepareStatement(sql);)
+	    	{
+	    pst.setDate(1, Date.valueOf(bookedDate));
 		pst.setInt(2, BusNum);
 		pst.setInt(3, seatNo);
-		
+		try(	ResultSet rs = pst.executeQuery();){
 		
 		if (rs.next()) {
 			b = new Booking();
@@ -65,7 +64,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 		
 			// b.genderPreference=rs.
 		}
-	}catch(SQLException e)
+		}}catch(SQLException e)
 		{
 		log.error(e);
 	}
@@ -78,14 +77,16 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 		String sql = "select seat_no,user_gender from booking where bus_num=busNum";
 		HashMap<Integer, String> m = new HashMap<Integer, String>();
 	try(Connection connection = DbConnection.getConnection();
-			Statement stmt = connection.createStatement();ResultSet rs = stmt.executeQuery(sql);)
+			Statement stmt = connection.createStatement();)
+	{
+			try(ResultSet rs = stmt.executeQuery(sql);)
 			{
 		    while (rs.next()) {
 			int seatNo = rs.getInt("seat_no");
 			String gender = rs.getString("user_gender");
 			m.put(seatNo, gender);
 		}	
-	}catch(SQLException e)
+			}}catch(SQLException e)
 	{
 	log.error(e);
 }
@@ -106,17 +107,18 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 		//String s= getgenderPreferences(booking.getSeatNo(),booking.getUserGender());
 		// System.out.println(s);
 		String sql1 = "select no_of_seats from buslist where bus_num=?";
-		String str = "insert into booking(user_id,travel_id,bus_num,user_gender,seat_no,booked_date,gender_preferences) values(?,?,?,?,?,?,?)";
+		String str = "insert into booking(user_id,bus_num,user_gender,seat_no,booked_date,gender_preferences) values(?,?,?,?,?,?)";
 		System.out.println(str);
 
 		try(Connection connection = DbConnection.getConnection();
-           PreparedStatement pst1 = connection.prepareStatement(sql1);ResultSet rs = pst1.executeQuery();PreparedStatement pst = connection.prepareStatement(str);)
+           PreparedStatement pst1 = connection.prepareStatement(sql1);PreparedStatement pst = connection.prepareStatement(str);)
 		{
 		pst1.setInt(1, booking.getBusNum());
 		
 		
 		
 		int totalSeats = 0;
+		try(ResultSet rs = pst1.executeQuery();){
 		if (rs.next()) {
 			totalSeats = rs.getInt("no_of_seats");
 		}
@@ -127,13 +129,13 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 			
 			
 			pst.setInt(1, booking.getUserId());
-			pst.setInt(2, booking.getTravelId());
+		
 
-			pst.setInt(3, booking.getBusNum());
-			pst.setString(4, booking.getUserGender());
-			pst.setInt(5, booking.getSeatNo());
-			pst.setDate(6, Date.valueOf(booking.getBookedDate()));
-			pst.setString(7, booking.getGenderPreference());
+			pst.setInt(2, booking.getBusNum());
+			pst.setString(3, booking.getUserGender());
+			pst.setInt(4, booking.getSeatNo());
+			pst.setDate(5, Date.valueOf(booking.getBookedDate()));
+			pst.setString(6, booking.getGenderPreference());
             if(booking.getSeatNo()!=0)
             {
 			int rows = pst.executeUpdate();
@@ -143,7 +145,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
             	System.out.println("seats are not available");
             
 		}
-	}catch(SQLException e)
+		}}catch(SQLException e)
 		{
 		log.error(e);
 	}
@@ -151,7 +153,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 
 	
    public void addAvaialbleSeats(Booking booking,int seatNo) throws DbException {
-	   String str = "insert into booking(user_id,travel_id,bus_num,user_gender,seat_no,booked_date,gender_preferences) values(?,?,?,?,?,?,?)";
+	   String str = "insert into booking(user_id,bus_num,user_gender,seat_no,booked_date,gender_preferences) values(?,?,?,?,?,?)";
 		System.out.println(str);
 		HashMap<String, String> hm=new HashMap<String, String>();
 		SeatDAOImpl si=new SeatDAOImpl(); String gender=null;
@@ -172,13 +174,13 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 
 		
 		pst.setInt(1, booking.getUserId());
-		pst.setInt(2, booking.getTravelId());
+		
 
-		pst.setInt(3, booking.getBusNum());
-		pst.setString(4, booking.getUserGender());
-		pst.setInt(5, seatNo);
-		pst.setDate(6, Date.valueOf(booking.getBookedDate()));
-		pst.setString(7, booking.getGenderPreference());
+		pst.setInt(2, booking.getBusNum());
+		pst.setString(3, booking.getUserGender());
+		pst.setInt(4, seatNo);
+		pst.setDate(5, Date.valueOf(booking.getBookedDate()));
+		pst.setString(6, booking.getGenderPreference());
 	   
 	   if(booking.getUserGender().equals(gender) && booking.getGenderPreference().equals(gender_preference))
 	   {

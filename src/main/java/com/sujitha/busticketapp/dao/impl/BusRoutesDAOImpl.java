@@ -1,10 +1,12 @@
 package com.sujitha.busticketapp.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import com.sujitha.busticketapp.DbConnection;
 import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.BusRoutesDAO;
 import com.sujitha.busticketapp.logger.Logger;
+import com.sujitha.busticketapp.model.BusDetails;
 import com.sujitha.busticketapp.model.BusRoutes;
 
 public  class BusRoutesDAOImpl implements BusRoutesDAO {
@@ -134,7 +137,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 	}
 
 	public List<BusRoutes> fromLocations() throws DbException {
-		String sql="select from_location from busroutes";
+		String sql="select distinct from_location from busroutes ";
 		 System.out.println(sql);
 		 List<BusRoutes> busroutes = new ArrayList<BusRoutes>();
 		try(Connection connection =DbConnection.getConnection() ;
@@ -157,7 +160,7 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 	}
 
 	public List<BusRoutes> toLocations() throws DbException {
-		String sql="select to_location from busroutes ";
+		String sql="select distinct to_location from busroutes ";
 		 System.out.println(sql);
 		 List<BusRoutes> busroutes = new ArrayList<BusRoutes>();
 		
@@ -183,7 +186,9 @@ public  class BusRoutesDAOImpl implements BusRoutesDAO {
 		return busroutes ;
 	}
 	
-	
+				
+		
+		
 }
 	
 		

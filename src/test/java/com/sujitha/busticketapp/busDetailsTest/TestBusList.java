@@ -9,6 +9,7 @@ import java.util.List;
 import com.sujitha.busticketapp.DbConnection;
 import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.BusListDAOImpl;
+import com.sujitha.busticketapp.dto.BusesDetails;
 import com.sujitha.busticketapp.logger.Logger;
 import com.sujitha.busticketapp.model.BusList;
 
@@ -37,18 +38,30 @@ public class TestBusList {
 				//System.out.println(seats);		
 				
 		//Select the details by using List
-				//   DisplayBusDeatils();
+				  // DisplayBusDeatils1();
 		
 		// To Delete busName*/
 		         // bli.deleteBusName("TSS");
+		//Select the details by using List
+		   DisplayBusDeatils();
 		} 
 	
 	
 	
 	 public static void DisplayBusDeatils() throws DbException {
 		 BusListDAOImpl bli = new BusListDAOImpl();
+		 List<BusesDetails> list=new ArrayList<BusesDetails>();
+			list=bli.allBusListDetails(1);
+			for(BusesDetails busList:list)
+			{
+				System.out.println(busList.toString()
+						);
+			}
+	 }
+	 public static void DisplayBusDeatils1() throws DbException {
+		 BusListDAOImpl bli = new BusListDAOImpl();
 		 List<BusList> list=new ArrayList<BusList>();
-			list=bli.allBusListDetails();
+			list=bli.allBusListDetailss();
 			for(BusList busList:list)
 			{
 				System.out.println(busList);

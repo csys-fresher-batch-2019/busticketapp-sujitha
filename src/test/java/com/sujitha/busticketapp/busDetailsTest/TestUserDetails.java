@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.UserDetailsDAOImpl;
+import com.sujitha.busticketapp.model.UserDetails;
 
 public class TestUserDetails {
 
@@ -12,7 +13,7 @@ public class TestUserDetails {
 		UserDetailsDAOImpl ud = new UserDetailsDAOImpl();
 		
 		// Add user details:
-		        testInsert();
+		       // testInsert();
 		
 		//Update user mobile number:
 		       //ud.updateUserPhnNum(14,9876567890l); 
@@ -25,9 +26,12 @@ public class TestUserDetails {
 		//To fetch the data from database to store txt file:
 		      // userdetails();
 	
-		//ud.login(9876543290l,"su1234");
-	
-	
+		//ud.login(9876543290l,"suji34");
+		Long ph=9876543290l;
+		String pass="suji1234";
+		int r=ud.getUserId(ph,pass);
+		System.out.println(r);
+			
 	}
 	
 	

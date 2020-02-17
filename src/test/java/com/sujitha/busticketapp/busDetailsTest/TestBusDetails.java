@@ -3,6 +3,7 @@ package com.sujitha.busticketapp.busDetailsTest;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.BusDetailsDAOImpl;
@@ -43,10 +44,15 @@ public class TestBusDetails {
 		   // System.out.println(busname);
 		      
 		     // testInsert();
-	   
+		BusDetailsDAOImpl bd = new BusDetailsDAOImpl();
+		BusDetails	b = new BusDetails();
+		b.setBusNum(101);
+		List<BusDetails> f= bd.busdetails(b);
+	 for (BusDetails busFare : f) {
+		System.out.println(busFare);
 	}
       
-	
+	}
 	
 	public static void testInsert() throws DbException {
     	ArrayList<BusDetails> busdetail= new ArrayList<BusDetails>();
@@ -56,8 +62,8 @@ public class TestBusDetails {
  	         bd.setRouteNo(4);
  	         bd.setBusNum(104);
              bd.setTravelDate(LocalDate.parse("2019-01-01"));
-             bd.setStartTime(LocalTime.parse("16:00"));
-             bd.setEndTime(LocalTime.parse("19:00"));
+             bd.setStartTime("16:00");
+             bd.setEndTime("19:00");
              bd.setFair(900);
              bd.setAvailableSeats(20);
  	  busdetail.add(bd);
@@ -74,6 +80,7 @@ public class TestBusDetails {
 	}
 		
 	}
+	
 	}
 
 

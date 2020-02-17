@@ -4,21 +4,26 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.soap.SOAPBinding;
+
 import com.sujitha.busticketapp.DbException;
+import com.sujitha.busticketapp.dao.impl.BusListDAOImpl;
 import com.sujitha.busticketapp.dao.impl.TicketBookingDAOImpl;
 import com.sujitha.busticketapp.dto.BusSeatsBooked;
 import com.sujitha.busticketapp.logger.Logger;
+import com.sujitha.busticketapp.model.Booking;
+import com.sujitha.busticketapp.model.BusList;
 import com.sujitha.busticketapp.model.TicketBooking;
 
 public class TestTicektBooking {
 	private static final Logger log=Logger.getInstance();
 
-	public static void main(String[] args) throws DbException {
+	public static void main(String[] args) throws Exception {
 		TicketBookingDAOImpl tbl = new TicketBookingDAOImpl();
 		
 		//Display no of seats booked by using travelid: 
-		       int bookedseats=tbl.getNoOfSeatsBooked(10);
-		       System.out.println(bookedseats);
+		      // int bookedseats=tbl.getNoOfSeatsBooked(10);
+		     //  System.out.println(bookedseats);
 		//Display total payment:
              //int payment=tbl.totalPayment("booked");
               //System.out.println(payment);
@@ -28,6 +33,22 @@ public class TestTicektBooking {
 		       //testInsert();
         //Display total seats by using date:      
               //totalSeats();
+		Booking b=new Booking();
+		       List<Booking> list=new ArrayList<Booking>();
+		       list=tbl.bookedUserDetails(11);
+		       for (Booking booking : list) {
+		    	   System.out.println(booking.toString());
+		    	   
+			}
+		      		       
+		       
+		       
+    
+		       
+					
+		
+	
+	
 	}
 	
 
