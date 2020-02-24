@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +19,10 @@ import com.sujitha.busticketapp.model.Booking;
 import com.sujitha.busticketapp.model.TicketBooking;
 
 public class TicketBookingDAOImpl implements TicketBookingDAO {
-
 	private static final Logger log = Logger.getInstance();
 
 	public void addBookingDetails(TicketBooking tic) throws DbException {
 		String sql = "insert into ticket_booking(travel_id,no_of_seats_booked,user_id,fair,j_date,booked_date,payment,status) values(?,?,?,?,?,?,?,?)";
-
 		try (Connection connection = DbConnection.getConnection();
 				PreparedStatement pst = connection.prepareStatement(sql);) {
 			pst.setInt(1, tic.getTravelId());
@@ -35,6 +34,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 			pst.setInt(7, tic.getPayment());
 			pst.setString(8, tic.getStatus());
 			int row = pst.executeUpdate();
+			connection.close();
 		} catch (SQLException e) {
 			log.error(e);
 		}
@@ -51,6 +51,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 			if (rows.next()) {
 				s = rows.getInt("no_of_seats_booked");
 			}
+			connection.close();
 		} catch (SQLException e) {
 			log.error(e);
 		}
@@ -65,11 +66,10 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 				PreparedStatement pst = connection.prepareStatement(sql);
 				ResultSet rows = pst.executeQuery();) {
 			pst.setString(1, status);
-
 			if (rows.next()) {
 				f = rows.getInt("payment");
-
 			}
+			connection.close();
 		} catch (SQLException e) {
 			log.error(e);
 		}
@@ -93,11 +93,11 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 				bsd.setBookedDate(ld);
 				list.add(bsd);
 			}
+			connection.close();
 		} catch (SQLException e) {
 			log.error(e);
 		}
 		return list;
-
 	}
 
 	public int getSeatNo(int travelId, int userId) throws DbException {
@@ -109,11 +109,10 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 				ResultSet rows = pst.executeQuery();) {
 			pst.setInt(1, travelId);
 			pst.setInt(2, userId);
-
 			if (rows.next()) {
 				f = rows.getInt("ticket_count");
-
 			}
+			connection.close();
 		} catch (SQLException e) {
 			log.error(e);
 		}
@@ -122,38 +121,37 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 
 	public List<Booking> bookedUserDetails(int userId) throws Exception {
 		List<Booking> list = new ArrayList<Booking>();
-		//System.out.println(userId);
 		String sql = "select * from booking where user_id=? order by booked_date desc";
 		System.out.println(sql);
 		try (Connection connection = DbConnection.getConnection();
 				PreparedStatement pst = connection.prepareStatement(sql);) {
 			pst.setInt(1, userId);
-
 			try (ResultSet rs = pst.executeQuery();) {
-
 				while (rs.next()) {
 					Booking bl = new Booking();
+					bl.setBookingId(rs.getLong("booking_id"));
 					bl.setBusNum(rs.getInt("bus_num"));
 					bl.setUserId(rs.getInt("user_id"));
 					bl.setUserGender(rs.getString("user_gender"));
-					//System.out.println(bl.getUserGender());
 					bl.setSeatNo(rs.getInt("seat_no"));
 					Date id = rs.getDate("booked_date");
 					if (id != null) {
 						LocalDate ld = id.toLocalDate();
 						bl.setBookedDate(ld);
 					}
-
 					bl.setGenderPreference(rs.getString("gender_preferences"));
+					Date d = rs.getDate("created_date");
+					LocalDate d1 = d.toLocalDate();
+					bl.setCreatedDate(d1);
+					bl.setStatus(rs.getString("status"));
+					bl.setAmount(rs.getInt("amount"));
 					list.add(bl);
 				}
-
+				connection.close();
 			}
 		} catch (SQLException e) {
 			log.error(e);
 		}
-
 		return list;
-
 	}
 }

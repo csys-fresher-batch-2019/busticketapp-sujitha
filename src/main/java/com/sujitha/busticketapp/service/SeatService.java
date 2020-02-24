@@ -22,7 +22,7 @@ public class SeatService {
 
 	}
 	
-	public static int getNextSeatNo(LocalDate bookedDate, int BusNum, String userGender,String genderPreference) throws DbException {
+	public int getNextSeatNo(LocalDate bookedDate, int BusNum, String userGender,String genderPreference) throws DbException {
 
 		BookingDetailDAOImpl obj = new BookingDetailDAOImpl();
 		 SeatDAOImpl sdi=new SeatDAOImpl();

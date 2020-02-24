@@ -1,12 +1,10 @@
 package com.sujitha.busticketapp.busDetailsTest;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sujitha.busticketapp.DbConnection;
 import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.BusListDAOImpl;
 import com.sujitha.busticketapp.dto.BusesDetails;
@@ -34,8 +32,8 @@ public class TestBusList {
 			//System.out.println(ss);		
 			
     	//To  Display NoOfSeats by giving busNum
-				//    int seats = bli.noOfSeats(102);
-				//System.out.println(seats);		
+				    int seats = bli.noOfSeats(102);
+				System.out.println(seats);		
 				
 		//Select the details by using List
 				  // DisplayBusDeatils1();
@@ -43,7 +41,10 @@ public class TestBusList {
 		// To Delete busName*/
 		         // bli.deleteBusName("TSS");
 		//Select the details by using List
-		   DisplayBusDeatils();
+		   //DisplayBusDeatils();
+		//bli.updateSeats(101);
+	int a=bli.getAvailableSeats(101,LocalDate.now() );
+	System.out.println(a);
 		} 
 	
 	

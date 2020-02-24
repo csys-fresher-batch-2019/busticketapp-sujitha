@@ -16,7 +16,8 @@ public class DbConnection {
 			
 		}catch(SQLException e)
 		{
-			throw new RuntimeException("invalid DB credentials"+e.getMessage());
+			e.printStackTrace();
+		throw new RuntimeException("invalid DB credentials"+e.getMessage());
 		
 		}
 		

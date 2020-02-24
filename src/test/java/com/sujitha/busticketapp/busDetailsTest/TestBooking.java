@@ -2,8 +2,6 @@ package com.sujitha.busticketapp.busDetailsTest;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
 
 import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.BookingDetailDAOImpl;
@@ -21,13 +19,13 @@ public class TestBooking {
 		
 		ArrayList<Booking> booking = new ArrayList<Booking>();
 		Booking b = new Booking();
-		b.setUserId(11);
-		
-		
-		b.setBusNum(102);
+	     
+		b.setUserId(1);
+		b.setBusNum(106);
 		b.setUserGender("F");
-		b.setBookedDate(LocalDate.parse("2019-12-10"));
+		b.setBookedDate(LocalDate.parse("2020-02-25"));
 		b.setGenderPreference("yes");
+		b.setAmount(900);
 		
 		booking.add(b);
 		
@@ -37,10 +35,10 @@ public class TestBooking {
 			System.out.println(bookings);
 			bg.addUserBookingDetails(bookings);
 		}
-		//bg.addAvaialbleSeats(b,8);
-		//bg.bookUnfilledSeats(b);
+		//bg.addAvaialbleSeats(b,2);
+		bg.bookUnfilledSeats(b);
 		
-		
+		//bg.cancelTicket("1");
 		
 		
 		

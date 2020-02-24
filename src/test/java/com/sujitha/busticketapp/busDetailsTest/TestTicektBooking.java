@@ -35,7 +35,7 @@ public class TestTicektBooking {
               //totalSeats();
 		Booking b=new Booking();
 		       List<Booking> list=new ArrayList<Booking>();
-		       list=tbl.bookedUserDetails(11);
+		       list=tbl.bookedUserDetails(1);
 		       for (Booking booking : list) {
 		    	   System.out.println(booking.toString());
 		    	   
