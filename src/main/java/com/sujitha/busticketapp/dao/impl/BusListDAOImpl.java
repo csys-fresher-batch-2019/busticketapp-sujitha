@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class BusListDAOImpl implements BusListDAO {
 				System.out.println(row);
 			}
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 }
@@ -49,7 +49,7 @@ public class BusListDAOImpl implements BusListDAO {
 			int rows = pst.executeUpdate();
 			System.out.println(rows);
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 	}
@@ -67,7 +67,7 @@ public class BusListDAOImpl implements BusListDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return s;
@@ -87,7 +87,7 @@ public class BusListDAOImpl implements BusListDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return s;
@@ -110,7 +110,7 @@ public class BusListDAOImpl implements BusListDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return list;
@@ -137,7 +137,7 @@ public class BusListDAOImpl implements BusListDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return list1;
@@ -159,7 +159,7 @@ public class BusListDAOImpl implements BusListDAO {
 				System.out.println("There are child records found");
 			}
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 	}
@@ -179,7 +179,7 @@ public class BusListDAOImpl implements BusListDAO {
 			}
 			System.out.println(noOfSeat);
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return noOfSeat;

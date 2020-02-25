@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.sujitha.busticketapp.DbConnection;
@@ -28,7 +27,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO {
 			int rows = pst.executeUpdate();
 			System.out.println(rows);
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 	}
@@ -46,7 +45,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return a;
@@ -68,7 +67,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO {
 			int rows = pst.executeUpdate();
 			System.out.println(rows);
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 	}
@@ -86,7 +85,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return b;
@@ -109,7 +108,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return busfares;
@@ -130,7 +129,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return d;
@@ -149,7 +148,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return e1;
@@ -172,7 +171,7 @@ public class BusDetailsDAOImpl implements BusDetailsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e1) {
+		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		return busdetails;

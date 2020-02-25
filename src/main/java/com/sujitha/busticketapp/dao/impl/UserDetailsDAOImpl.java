@@ -3,7 +3,7 @@ package com.sujitha.busticketapp.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 			int rows = pst.executeUpdate();
 			System.out.println(rows);
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 	}
@@ -57,7 +57,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 	}
@@ -75,7 +75,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return a;
@@ -95,7 +95,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return v;
@@ -127,7 +127,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 			int rows = pst.executeUpdate();
 			System.out.println(rows);
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 	}
@@ -142,7 +142,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 			int rows = pst.executeUpdate();
 			System.out.println(rows);
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 	}
@@ -165,7 +165,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return msg;
@@ -185,7 +185,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 
 			log.error(e);
 		}

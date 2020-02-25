@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class SeatDAOImpl {
 				System.out.println("Count : " + c);
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return c;
@@ -56,7 +56,7 @@ public class SeatDAOImpl {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return a;
@@ -78,7 +78,7 @@ public class SeatDAOImpl {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return unSeats;
@@ -102,7 +102,7 @@ public class SeatDAOImpl {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return (hm);

@@ -33,7 +33,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return seats;
@@ -56,7 +56,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return b;
@@ -75,7 +75,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return m;
@@ -123,7 +123,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return (rows);
@@ -177,7 +177,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 			}
 			connection.close();
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return (flag);
@@ -207,7 +207,7 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 			int rows = pst.executeUpdate();
 			System.out.println(rows);
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 	}

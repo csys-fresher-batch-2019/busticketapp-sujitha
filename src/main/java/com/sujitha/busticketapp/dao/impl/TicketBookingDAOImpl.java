@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 			pst.setString(8, tic.getStatus());
 			int row = pst.executeUpdate();
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 	}
@@ -52,7 +52,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 				s = rows.getInt("no_of_seats_booked");
 			}
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return s;
@@ -70,7 +70,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 				f = rows.getInt("payment");
 			}
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return f;
@@ -94,7 +94,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 				list.add(bsd);
 			}
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return list;
@@ -113,7 +113,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 				f = rows.getInt("ticket_count");
 			}
 			connection.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return f;
@@ -149,7 +149,7 @@ public class TicketBookingDAOImpl implements TicketBookingDAO {
 				}
 				connection.close();
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			log.error(e);
 		}
 		return list;
