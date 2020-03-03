@@ -13,6 +13,7 @@ public class BusDetails {
 	private  String endTime;
 	private  int fair ;
 	private  int availableSeats;
+	private int ratings;
 	public int getTravelId() {
 		return travelId;
 	}
@@ -61,6 +62,19 @@ public class BusDetails {
 	public void setAvailableSeats(int availableSeats) {
 		this.availableSeats = availableSeats;
 	}
+	public int getRatings() {
+		return ratings;
+	}
+	public void setRatings(int ratings) {
+		this.ratings = ratings;
+	}
+	@Override
+	public String toString() {
+		return "BusDetails [travelId=" + travelId + ", routeNo=" + routeNo + ", busNum=" + busNum + ", travelDate="
+				+ travelDate + ", startTime=" + startTime + ", endTime=" + endTime + ", fair=" + fair
+				+ ", availableSeats=" + availableSeats + ", ratings=" + ratings + "]";
+	}
+	
 	
 	}
 	

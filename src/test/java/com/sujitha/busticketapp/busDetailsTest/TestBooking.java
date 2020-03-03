@@ -13,7 +13,7 @@ import com.sujitha.busticketapp.service.SeatService;
 public class TestBooking {
 	private static final Logger log=Logger.getInstance();
 
-	public static void main(String[] args) throws DbException {
+	public static void main(String[] args) throws Exception {
 		
 		//testTicketBooking();
 		
@@ -21,7 +21,7 @@ public class TestBooking {
 		Booking b = new Booking();
 	     
 		b.setUserId(1);
-		b.setBusNum(106);
+		b.setBusNum(2);
 		b.setUserGender("F");
 		b.setBookedDate(LocalDate.parse("2020-02-25"));
 		b.setGenderPreference("yes");
@@ -33,10 +33,12 @@ public class TestBooking {
 		
 		for (Booking bookings : booking) {
 			System.out.println(bookings);
-			bg.addUserBookingDetails(bookings);
+			//bg.addTickets(bookings);
 		}
+		int a =bg.getPrice(1);
+		System.out.println(a);
 		//bg.addAvaialbleSeats(b,2);
-		bg.bookUnfilledSeats(b);
+		//bg.bookUnfilledSeats(b);
 		
 		//bg.cancelTicket("1");
 		

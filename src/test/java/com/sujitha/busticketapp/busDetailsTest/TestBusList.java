@@ -41,10 +41,10 @@ public class TestBusList {
 		// To Delete busName*/
 		         // bli.deleteBusName("TSS");
 		//Select the details by using List
-		   //DisplayBusDeatils();
+		   DisplayBusDeatils();
 		//bli.updateSeats(101);
-	int a=bli.getAvailableSeats(101,LocalDate.now() );
-	System.out.println(a);
+	//int a=bli.getAvailableSeats(101,LocalDate.now() );
+	//System.out.println(a);
 		} 
 	
 	

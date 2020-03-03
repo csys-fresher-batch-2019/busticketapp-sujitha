@@ -118,7 +118,7 @@ public class BusListDAOImpl implements BusListDAO {
 
 	public List<BusesDetails> allBusListDetails(int routeNo) throws DbException {
 		List<BusesDetails> list1 = new ArrayList<BusesDetails>();
-		String sql = "select b.bus_num,bl.bus_name,bl.no_of_seats,bl.seat_type,b.start_time,b.end_time,b.fair from buslist bl,busdetails b where bl.bus_num=b.bus_num and b.route_no=?";
+		String sql = "select b.bus_num,bl.bus_name,bl.no_of_seats,bl.seat_type,bl.bus_model,b.start_time,b.end_time,b.fair,b.ratings,b.available_seats from buslist bl,busdetails b where bl.bus_num=b.bus_num and b.route_no=?";
 		System.out.println(sql);
 		try (Connection connection = DbConnection.getConnection();
 				PreparedStatement pst = connection.prepareStatement(sql);) {
@@ -130,9 +130,12 @@ public class BusListDAOImpl implements BusListDAO {
 					b.setBusName(rs.getString("bus_name"));
 					b.setNoOfSeats(rs.getInt("no_of_seats"));
 					b.setSeatType(rs.getString("seat_type"));
+					b.setBusModel(rs.getString("bus_model"));
 					b.setStartTime(rs.getString("start_time"));
 					b.setEndTime(rs.getString("end_time"));
 					b.setFair(rs.getInt("fair"));
+					b.setRatings(rs.getInt("ratings"));
+					b.setAvailableSeats(rs.getInt("available_seats"));
 					list1.add(b);
 				}
 				connection.close();

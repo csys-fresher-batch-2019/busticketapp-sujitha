@@ -6,11 +6,8 @@ public class BusList {
 		private String busName; 
 		private int noOfSeats;
 		private String seatType;
-		@Override
-		public String toString() {
-			return "BusList [busNum=" + busNum + ", busName=" + busName + ", noOfSeats=" + noOfSeats + ", seatType="
-					+ seatType + "]";
-		}
+        private String busModel;
+        private String opName;
 		public int getBusNum() {
 			return busNum;
 		}
@@ -35,6 +32,25 @@ public class BusList {
 		public void setSeatType(String seatType) {
 			this.seatType = seatType;
 		}
+		public String getBusModel() {
+			return busModel;
+		}
+		public void setBusModel(String busModel) {
+			this.busModel = busModel;
+		}
+		public String getOpName() {
+			return opName;
+		}
+		public void setOpName(String opName) {
+			this.opName = opName;
+		}
+		@Override
+		public String toString() {
+			return "BusList [busNum=" + busNum + ", busName=" + busName + ", noOfSeats=" + noOfSeats + ", seatType="
+					+ seatType + ", busModel=" + busModel + ", opName=" + opName + "]";
+		}
+		
+		
 	}
 
 

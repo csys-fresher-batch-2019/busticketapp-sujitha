@@ -211,4 +211,51 @@ public class BookingDetailDAOImpl implements BookingDeatilsDAO {
 			log.error(e);
 		}
 	}
+	
+	public int addTickets(Booking booking) throws Exception{
+		String str = "insert into booking(booking_id,user_id,bus_num,user_gender,seat_no,booked_date,gender_preferences,amount) values(booked_id.nextval,?,?,?,?,?,?,?)";
+		System.out.println(str);
+		int rows=0;
+		try (Connection connection = DbConnection.getConnection();
+				
+				PreparedStatement pst = connection.prepareStatement(str);) {
+			
+			
+			pst.setInt(1, booking.getUserId());
+			pst.setInt(2, booking.getBusNum());
+			pst.setString(3, booking.getUserGender());
+			pst.setInt(4, booking.getSeatNo());
+			pst.setDate(5, Date.valueOf(booking.getBookedDate()));
+			pst.setString(6, booking.getGenderPreference());
+			pst.setInt(7, booking.getAmount());
+
+			rows = pst.executeUpdate();
+			
+			} catch (Exception e) {
+				log.error(e);
+			}
+		
+		return (rows);
+		
+	}
+	public int getPrice(int busNum) throws Exception {
+		String sql = "Select fair from busdetails where bus_num=?";
+		System.out.println("");
+		// System.out.println(sql);
+		int a=0;
+		try (Connection connection = DbConnection.getConnection() ;
+			 PreparedStatement pst = connection.prepareStatement(sql))
+		{
+			pst.setInt(1,busNum);
+		try(ResultSet rs = pst.executeQuery())
+			  {
+			if (rs.next()) {
+				 a = rs.getInt("fair");
+			}
+			//return a;
+		}} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return a;
+	}
 }

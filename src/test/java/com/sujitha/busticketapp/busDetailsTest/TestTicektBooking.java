@@ -3,9 +3,6 @@ package com.sujitha.busticketapp.busDetailsTest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.BusListDAOImpl;
 import com.sujitha.busticketapp.dao.impl.TicketBookingDAOImpl;

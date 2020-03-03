@@ -1,25 +1,44 @@
 package com.sujitha.busticketapp.dto;
 
-import java.time.LocalTime;
-
-public class BusesDetails {
+public class Buses {
 	private int busNum;
-	private String busName; 
+	private int routeNo;
+private String busName; 
+private String fromLocation;
+private String toLocation;
 	private int noOfSeats;
 	private String seatType;
-	private String busModel;
-	private  int travelId ;
-	private  int routeNo;
+    private String busModel;
+    private String opName;
 	private  String startTime;
 	private  String endTime;
 	private  int fair ;
-	private int ratings;
+	private String ratings;
 	private  int availableSeats;
 	public int getBusNum() {
 		return busNum;
 	}
 	public void setBusNum(int busNum) {
 		this.busNum = busNum;
+	}
+	
+	public String getFromLocation() {
+		return fromLocation;
+	}
+	public void setFromLocation(String fromLocation) {
+		this.fromLocation = fromLocation;
+	}
+	public String getToLocation() {
+		return toLocation;
+	}
+	public void setToLocation(String toLocation) {
+		this.toLocation = toLocation;
+	}
+	public int getRouteNo() {
+		return routeNo;
+	}
+	public void setRouteNo(int routeNo) {
+		this.routeNo = routeNo;
 	}
 	public String getBusName() {
 		return busName;
@@ -45,17 +64,11 @@ public class BusesDetails {
 	public void setBusModel(String busModel) {
 		this.busModel = busModel;
 	}
-	public int getTravelId() {
-		return travelId;
+	public String getOpName() {
+		return opName;
 	}
-	public void setTravelId(int travelId) {
-		this.travelId = travelId;
-	}
-	public int getRouteNo() {
-		return routeNo;
-	}
-	public void setRouteNo(int routeNo) {
-		this.routeNo = routeNo;
+	public void setOpName(String opName) {
+		this.opName = opName;
 	}
 	public String getStartTime() {
 		return startTime;
@@ -75,10 +88,11 @@ public class BusesDetails {
 	public void setFair(int fair) {
 		this.fair = fair;
 	}
-	public int getRatings() {
+	
+	public String getRatings() {
 		return ratings;
 	}
-	public void setRatings(int ratings) {
+	public void setRatings(String ratings) {
 		this.ratings = ratings;
 	}
 	public int getAvailableSeats() {
@@ -89,9 +103,14 @@ public class BusesDetails {
 	}
 	@Override
 	public String toString() {
-		return "BusesDetails [busNum=" + busNum + ", busName=" + busName + ", noOfSeats=" + noOfSeats + ", seatType="
-				+ seatType + ", busModel=" + busModel + ", travelId=" + travelId + ", routeNo=" + routeNo
-				+ ", startTime=" + startTime + ", endTime=" + endTime + ", fair=" + fair + ", ratings=" + ratings
-				+ ", availableSeats=" + availableSeats + "]";
+		return "Buses [busNum=" + busNum + ", routeNo=" + routeNo + ", busName=" + busName + ", fromLocation="
+				+ fromLocation + ", toLocation=" + toLocation + ", noOfSeats=" + noOfSeats + ", seatType=" + seatType
+				+ ", busModel=" + busModel + ", opName=" + opName + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", fair=" + fair + ", ratings=" + ratings + ", availableSeats=" + availableSeats + "]";
 	}
+	
+	
+	
+	
+	
 }
