@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dao.impl.UserDetailsDAOImpl;
-import com.sujitha.busticketapp.model.UserDetails;
 
 public class TestUserDetails {
 
@@ -27,10 +26,15 @@ public class TestUserDetails {
 		      // userdetails();
 	
 		//ud.login(9876543290l,"suji34");
-		Long ph=9876543290l;
+	/*	Long ph=9876543290l;
 		String pass="suji1234";
 		int r=ud.getUserId(ph,pass);
-		System.out.println(r);
+		System.out.println(r);*/
+		// Display count gender details:
+		// UserDetailsDAOImpl ud = new UserDetailsDAOImpl();
+	        int count= ud.getGenderCount("F");
+	        System.out.println(count);
+		
 			
 	}
 	
@@ -72,15 +76,12 @@ public class TestUserDetails {
 		System.out.println(fileContent);
 		Path path=Paths.get("D:\\UserDetaill_Export).txt");
 		Files.write(path,fileContent.getBytes());
-	}
+	}*/
 
 
-	// Display count gender details:
-        //int count= ud.getGenderCount("F");
-       // System.out.println(count);
 	
 	
-	ArrayList<UserDetails> userdetails=new ArrayList<UserDetails>();
+	/*ArrayList<UserDetails> userdetails=new ArrayList<UserDetails>();
 
 	UserDetails ul= new UserDetails();
 	ul.userId=17;

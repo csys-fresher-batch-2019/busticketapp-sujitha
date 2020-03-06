@@ -1,13 +1,11 @@
 package com.sujitha.busticketapp.dao;
 
-import java.util.ArrayList;
-
 import com.sujitha.busticketapp.DbException;
 import com.sujitha.busticketapp.dto.UserGenderEnum;
 import com.sujitha.busticketapp.model.UserDetails;
 
 public interface UserDetailsDAO {
-	public void getUserDetails(String userName, long userPhnNum, String userGender, String password)throws DbException;
+	public void getUserDetails(String userName, long userPhnNum, String userGender, String password) throws DbException;
 
 	public void updateUserPhnNum(int userId, long userPhnNum) throws DbException;
 
